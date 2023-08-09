@@ -1,25 +1,24 @@
 require 'pry-byebug'
 
 class PlayMasterMind
-  def initialize
-    @encoded_colors = SetCode.all_colors
-  end
+  # def initialize
+  #   # @encoded_colors = encoded_colors
+  # end
 
-  def start_new_game
+  def self.start_new_game
     @game_roles = Roles.determine_roles
 
-    # case role
-    # when :set_code
-    #   @code_maker ||= :player
-    #   @code_breaker ||= :computer
-    # when :break_code
-    #   @code_maker ||= :computer
-    #   @code_breaker ||= :player
-    # end
-    binding.pry
-    play_game
+    if @game_roles[:code_maker] == :computer
+      @encoded_colors ||= ComputerSelectColors.computer_set_code
+      play_game # I think this could be used for either... 
+    else
+      @encoded_colors ||= PlayerSelectColors.player_set_code
+      puts "code not written yet to kick off this verseion of the game"
+    end
+    
   end
 
+  # I think this can stay as-is regardless of roles
   def play_game(turns_left=12)
     if turns_left > 0
       play_turn(turns_left)
@@ -70,7 +69,7 @@ class PlayMasterMind
   end
   
   def guess_code
-    @guessed_code = GuessCode.player_attempts_to_break_the_code
+    @guessed_code = PlayerSelectColors.player_attempts_to_break_the_code
   end
 end
 
@@ -121,10 +120,10 @@ class Keys
   end
 end
 
-class SetCode
+class ComputerSelectColors
   COLOR_BANK = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
 
-  def self.all_colors
+  def self.computer_set_code
     colors = []
     4.times do
       colors << COLOR_BANK.shuffle.last
@@ -132,9 +131,11 @@ class SetCode
     # colors
     [:red, :red, :orange, :yellow]  # for testing. Otherwise uncomment colors and remove this line
   end
+
+  # def self.player
 end
 
-class GuessCode
+class PlayerSelectColors
   def self.player_attempts_to_break_the_code
     puts "pick 4 colors"
     counter = 0
@@ -145,6 +146,21 @@ class GuessCode
       colors << color.strip.to_sym
       counter += 1
     end
+    colors
+  end
+
+  def self.player_set_code
+    puts "Time to set the code."
+    puts "pick 4 colors"
+    counter = 0
+    colors = []
+    until colors.count == 4
+      puts "state your choice for color #{counter + 1}."
+      color = gets.chomp
+      colors << color.strip.to_sym
+      counter += 1
+    end
+    puts "Here's the code you set: #{colors}"
     colors
   end
 end
@@ -164,7 +180,7 @@ class EndGame
     puts "would you like to play again? (1=yes, 2=no)"
     answer = gets.chomp
     if answer == "1"
-      PlayMasterMind.new.play_game
+      PlayMasterMind.start_new_game
     else
       "ok, another time then!"
       exit
