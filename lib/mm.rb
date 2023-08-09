@@ -1,46 +1,61 @@
 require 'pry-byebug'
 
-
 class PlayMasterMind
   def initialize
     @encoded_colors = SetCode.all_colors
   end
-  
-  def get_code_guess
-    @guessed_code = GuessCode.player_attempts_to_break_the_code
-  end
 
-  def run_through_turns(turns_done=0)
+  def play_game(turns_done=0)
     if turns_done <= 12
-      guess_count = IncrementGuess.new(turns_done)
-      next_turn = guess_count.increment_turn_counter
-      get_code_guess
-      assess_the_payers_attempt_to_break_the_code
-      run_through_turns(next_turn)
+      play_turn(turns_done)
     else
       EndGame.better_luck_next_time
     end
   end
 
-  def assess_the_payers_attempt_to_break_the_code
-    best, next_best = [0, 0]
-    rating = {}
-    for index in (0...4)
-      if @guessed_code[index] == @encoded_colors[index]
-        best += 1
-      elsif
-        @encoded_colors.any?(@guessed_code[index])
-        next_best += 1
-      else
-        next
+  def play_turn(turns_done)
+    guess_count = IncrementGuess.new(turns_done)
+    next_turn = guess_count.increment_turn_counter
+    guess_code
+    evaluate_guess
+    play_game(next_turn)
+  end
+
+  def evaluate_guess
+    red, white = [0, 0]
+    for place in (0...4)
+      if merits_red_peg?(place)
+        red += 1
+      elsif merits_white_peg?(place)
+        white += 1
       end
     end
 
-    rating = KeyPegs.new(best, next_best)
+    get_rating(red, white)
+
+    puts "\nyour score: #{score}"
     puts "you guessed #{@guessed_code}"
-    score = { best: "#{rating.fully_correct_qty}", next_best: "#{rating.partly_correct_qty}" }
-    puts "your score: #{score}"
-    EndGame.we_have_a_winner if best == 4
+    EndGame.we_have_a_winner if red == 4
+  end
+
+  def merits_red_peg?(place)
+    @guessed_code[place] == @encoded_colors[place]
+  end
+
+  def merits_white_peg?(place)
+    @encoded_colors.any?(@guessed_code[place])
+  end
+
+  def score
+    { red: "#{@rating.red}", white: "#{@rating.white}" }
+  end
+
+  def get_rating(red, white)
+    @rating = Keys.new(red, white)
+  end
+  
+  def guess_code
+    @guessed_code = GuessCode.player_attempts_to_break_the_code
   end
 end
 
@@ -54,18 +69,18 @@ class IncrementGuess
   end
 end
 
-class KeyPegs
-  def initialize(fully_correct_qty=0, partly_correct_qty=0)
-    @fully_correct_qty = fully_correct_qty
-    @partly_correct_qty = partly_correct_qty
+class Keys
+  def initialize(red=0, white=0)
+    @red = red  # right color/right placement
+    @white = white  # right color / wrong placement
   end
 
-  def fully_correct_qty
-    @fully_correct_qty
+  def red
+    @red
   end
 
-  def partly_correct_qty
-    @partly_correct_qty
+  def white
+    @white
   end
 end
 
@@ -99,12 +114,24 @@ end
 
 class EndGame
   def self.we_have_a_winner
-    puts "whoohoo!!!"
-    exit
+    puts "whoohoo, you win, you codebreaker, you!!!"
+    self.play_again?
   end
 
   def self.better_luck_next_time
     puts "Your 12 turns are up. Better luck next time!"
-    exit
+    self.play_again?
+  end
+
+  def self.play_again?  # needs refactor
+    puts "would you like to play again? (1=yes, 2=no)"
+    answer = gets.chomp
+    if answer == 1
+      new_game = PlayMasterMind.new
+      new_game.play_game
+    else
+      "ok, another time then!"
+      exit
+    end
   end
 end
