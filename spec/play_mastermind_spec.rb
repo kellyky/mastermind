@@ -13,7 +13,7 @@ describe PlayMasterMind do
 
     context 'when 12 turns have been played' do
       it 'should call the end game -- better luck next time' do
-        turns_done = 12
+        turns_left = 12
 
       end
     end

@@ -6,20 +6,30 @@ class PlayMasterMind
   end
 
   def start_new_game
-    StartGame.determine_codemaker
+    @game_roles = Roles.determine_roles
+
+    # case role
+    # when :set_code
+    #   @code_maker ||= :player
+    #   @code_breaker ||= :computer
+    # when :break_code
+    #   @code_maker ||= :computer
+    #   @code_breaker ||= :player
+    # end
+    binding.pry
     play_game
   end
 
-  def play_game(turns_done=12)
-    if turns_done > 0
-      play_turn(turns_done)
+  def play_game(turns_left=12)
+    if turns_left > 0
+      play_turn(turns_left)
     else
       EndGame.better_luck_next_time
     end
   end
 
-  def play_turn(turns_done)
-    guess_count = DecrementGuess.new(turns_done)
+  def play_turn(turns_left)
+    guess_count = DecrementGuess.new(turns_left)
     next_turn = guess_count.decrement_turn_counter
     guess_code
     evaluate_guess
@@ -64,26 +74,25 @@ class PlayMasterMind
   end
 end
 
-class StartGame
-  def self.determine_codemaker
+class Roles
+  def self.determine_roles
     puts "Welcome to Mastermind!" 
     puts "Do you want to set the code or break the code?"
     puts "(1 = set the code, 2 = break the code)"
     answer = gets.chomp
-    self.code_maker(answer)
-  end
-
-  def self.code_maker(answer)
     case answer
     when "1"
-      puts "code maker it is!"
-      @code_maker  # player sets code
+      puts "code maker it is! You set the code and the computer will try to break it."
+      @code_maker = :player
+      @code_breaker = :computer
     when "2"
-      puts "code breaker it is!"
-      @code_breaker # player does not (computer does)
+      puts "code breaker it is! The computer sets the code and you try to break it."
+      @code_maker = :computer
+      @code_breaker = :player
     else
       "something I guess"
     end
+    { code_maker: @code_maker, code_breaker: @code_breaker }
   end
 end
 
