@@ -5,8 +5,8 @@ class PlayMasterMind
     @encoded_colors = SetCode.all_colors
   end
 
-  def play_game(turns_done=0)
-    if turns_done <= 12
+  def play_game(turns_done=12)
+    if turns_done > 0
       play_turn(turns_done)
     else
       EndGame.better_luck_next_time
@@ -14,8 +14,8 @@ class PlayMasterMind
   end
 
   def play_turn(turns_done)
-    guess_count = IncrementGuess.new(turns_done)
-    next_turn = guess_count.increment_turn_counter
+    guess_count = DecrementGuess.new(turns_done)
+    next_turn = guess_count.decrement_turn_counter
     guess_code
     evaluate_guess
     play_game(next_turn)
@@ -59,13 +59,13 @@ class PlayMasterMind
   end
 end
 
-class IncrementGuess
+class DecrementGuess
   def initialize(guess_count=0)
     @guess_count = guess_count
   end
 
-  def increment_turn_counter
-    @guess_count += 1
+  def decrement_turn_counter
+    @guess_count -= 1
   end
 end
 
@@ -123,12 +123,11 @@ class EndGame
     self.play_again?
   end
 
-  def self.play_again?  # needs refactor
+  def self.play_again?
     puts "would you like to play again? (1=yes, 2=no)"
     answer = gets.chomp
-    if answer == 1
-      new_game = PlayMasterMind.new
-      new_game.play_game
+    if answer == "1"
+      PlayMasterMind.new.play_game
     else
       "ok, another time then!"
       exit
