@@ -5,6 +5,11 @@ class PlayMasterMind
     @encoded_colors = SetCode.all_colors
   end
 
+  def start_new_game
+    StartGame.determine_codemaker
+    play_game
+  end
+
   def play_game(turns_done=12)
     if turns_done > 0
       play_turn(turns_done)
@@ -56,6 +61,29 @@ class PlayMasterMind
   
   def guess_code
     @guessed_code = GuessCode.player_attempts_to_break_the_code
+  end
+end
+
+class StartGame
+  def self.determine_codemaker
+    puts "Welcome to Mastermind!" 
+    puts "Do you want to set the code or break the code?"
+    puts "(1 = set the code, 2 = break the code)"
+    answer = gets.chomp
+    self.code_maker(answer)
+  end
+
+  def self.code_maker(answer)
+    case answer
+    when "1"
+      puts "code maker it is!"
+      @code_maker  # player sets code
+    when "2"
+      puts "code breaker it is!"
+      @code_breaker # player does not (computer does)
+    else
+      "something I guess"
+    end
   end
 end
 

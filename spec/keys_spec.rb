@@ -1,4 +1,4 @@
-require './lib/mm'
+require './lib/mastermind'
 require 'pry-byebug'
 
 describe Keys do

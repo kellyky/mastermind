@@ -1,7 +1,7 @@
-require './lib/mm'
+require './lib/mastermind'
 require 'pry-byebug'
 
 this_many_guesses = 1
 
 new_game = PlayMasterMind.new
-new_game.play_game(this_many_guesses)
+new_game.start_new_game
