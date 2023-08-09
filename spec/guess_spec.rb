@@ -1,7 +1,7 @@
 require './lib/mm'
 require 'pry-byebug'
 
-describe Guess do
+describe IncrementGuess do
   let(:guess) { 0 }
   describe 'increment_turn_counter' do
     subject{described_class.new(guess)}
