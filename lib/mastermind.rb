@@ -12,15 +12,11 @@ class PlayMasterMind
 
   def start_new_game
     @game_roles = Role.determine_roles
-    set_code
+    set_code_to_break
   end
 
-  def set_code
-    @encoded_colors ||= if @game_roles[:code_maker] == :computer
-      ComputerColorSelector.set_code
-    else
-      PlayerColorSelector.set_code
-    end
+  def set_code_to_break
+    @encoded_colors = ColorSelector.new(@game_roles[:code_maker]).get_code
   end
 
   # I think this can stay as-is regardless of roles
@@ -55,8 +51,11 @@ class PlayMasterMind
 
     get_rating(red, white)
 
+    puts "\n======================\n"
     puts "\nyour score: #{score}"
     puts "you guessed #{@guessed_code}"
+    puts "\n======================\n"
+    
     EndGame.we_have_a_winner if red == 4
   end
 
@@ -77,6 +76,6 @@ class PlayMasterMind
   end
   
   def guess_code
-    @guessed_code = PlayerColorSelector.player_attempts_to_break_the_code
+    @guessed_code = ColorSelector::Player.break_code
   end
 end
