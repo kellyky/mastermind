@@ -24,17 +24,17 @@ Proceed as prompted.
 - Choose whether to make the code or break the code
   - If you are the code breaker: the computer sets the code and you do the fun part
   - If you are the code maker: watch the computer fail
-### Coming Soon:
-- Computer to choose who breaks the code
-- User to choose whether the computer chooses :trollface: 😆 - maybe... 
-- User to select how many guesses
-- Ability for the user to add colors to the color bank
-- Ooh, maybe figure out how to have the computer find new colors
-- Expand the color bank (i.e. allow user to enter a color not in the 'bank' and expand the bank to include it, so the computer knows to guess it) -- and/or place validations on which colors can be set - need to decide
-
+ 
 Not quite a feature - you can manually edit `play_the_game.rb` to set the number of guesses to something other than 12. 
 
-_Reserving the right to change my mind on any of the above._
+### Coming Soon & Ideas:
+- difficulty levels for computer, human
+  - e.g. smaller or larger color bank... hints?  
+- possibly... ability to pull from larger color bank or for the code_maker (if its the human) to enter a color and have it added to the color bank
+- possibly up the skill of the computer
+- fix / finish specs
+
+I may change my mind on these! 
 
 ## Quirks & Bugs
 - Correct input only, please and thanks 😈
