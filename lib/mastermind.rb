@@ -12,15 +12,12 @@ class PlayMasterMind
 
   def start_new_game
     @game_roles = Role.determine_roles
-    set_code_to_break
+    @color_selector = ColorSelector.new(code_maker)
+    @encoded_colors ||= ColorSelector.new(code_maker).get_code
   end
 
   def code_maker
     @game_roles[:code_maker]
-  end
-
-  def set_code_to_break
-    @encoded_colors = ColorSelector.new(code_maker).get_code
   end
 
   def play_game(guesses_remaining)
@@ -87,6 +84,6 @@ class PlayMasterMind
   end
   
   def guess_code
-    @guessed_code = ColorSelector.break_code
+    @guessed_code = @color_selector.break_code
   end
 end

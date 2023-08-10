@@ -15,7 +15,7 @@ class ColorSelector
     end
   end
 
-  def self.break_code(wrong_colors=[])
+  def break_code
     if @@code_maker == :computer
       Player.break_code
     else
@@ -28,17 +28,18 @@ class ColorSelector
   end
   
   class Computer < ColorSelector
-    def initialize; end
+    def initialize
+    end
 
     def set_code
       select_colors
     end
 
     def break_code
-      Computer.select_colors
+      select_colors
     end
 
-    def self.select_colors
+    def select_colors
       puts ">>>>>>>>>>>>>>>>>>>>>>"
       puts "Colors to choose from: #{@@color_bank}"
       puts ">>>>>>>>>>>>>>>>>>>>>>"
