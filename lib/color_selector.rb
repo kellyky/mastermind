@@ -44,21 +44,16 @@ class ColorSelector
       puts "Colors to choose from: #{@@color_bank}"
       puts ">>>>>>>>>>>>>>>>>>>>>>"
 
-      colors = []
+      selected_colors = []
       4.times do
-        colors << @@color_bank.shuffle.last
+        selected_colors << @@color_bank.shuffle.last
       end
-      colors
-    end
-
-    def colors
-      super
+      selected_colors
     end
   end
 
   class Player < ColorSelector
     def initialize
-      @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
     end
 
     def set_code
@@ -80,7 +75,7 @@ class ColorSelector
       selected_colors = []
       until selected_colors.count == 4
         tell_user_to_select_color(counter)
-        color = gets.chomp #.strip.downcase.to_sym
+        color = gets.chomp
         formatted_color = format_color(color)
         if !@@color_bank.include?(formatted_color )
           @@color_bank << formatted_color
@@ -91,12 +86,12 @@ class ColorSelector
       selected_colors
     end
 
-    def guess_colors
+    def guess_colors  # might re-combine later? the difference is whether colors can be added
       counter = 0
       selected_colors = []
       until selected_colors.count == 4
         tell_user_to_select_color(counter)
-        color = gets.chomp #.strip.downcase.to_sym
+        color = gets.chomp
         formatted_color = format_color(color)
         selected_colors << formatted_color
         counter += 1
@@ -112,27 +107,5 @@ class ColorSelector
     def format_color(color)
       color.strip.downcase.to_sym
     end
-
-    # def select_colors
-      
-    #   counter = 0
-    #   colors = []
-    #   until colors.count == 4
-    #     puts "state your choice for color #{counter + 1}."
-    #     sleep(0.5)
-    #     color = gets.chomp.strip.downcase.to_sym
-    #     if !@@color_bank.include?(color )
-    #       @@color_bank << color
-    #     end
-    #     sleep(0.5)
-    #     colors << color
-    #     counter += 1
-    #   end
-    #   colors
-    # end
-
-    # def colors
-    #   @@color_bank
-    # end
   end
 end
