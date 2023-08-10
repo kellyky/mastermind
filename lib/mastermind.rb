@@ -6,7 +6,7 @@ require './lib/color_selector'
 require 'pry-byebug'
 
 class PlayMasterMind
-  def initialize(guesses_remaining=12)
+  def initialize(guesses_remaining)
     @guesses_remaining = guesses_remaining
   end
 
@@ -54,10 +54,14 @@ class PlayMasterMind
 
     get_rating(red, white)
 
+    sleep(0.2)
     puts "\n======================\n"
     puts "\nyour score: #{score}"
     puts "you guessed #{@guessed_code}"
     puts "\n======================\n"
+    sleep(0.2)
+
+    nil_score?
 
     EndGame.we_have_a_winner if red == 4
   end
@@ -70,8 +74,12 @@ class PlayMasterMind
     @encoded_colors.any?(@guessed_code[place])
   end
 
+  def nil_score?  # working towards using this to narrow color range for computer
+    @score[:red] == "0" && @score[:white] == "0"
+  end
+
   def score
-    { red: "#{@rating.red}", white: "#{@rating.white}" }
+    @score = { red: "#{@rating.red}", white: "#{@rating.white}" }
   end
 
   def get_rating(red, white)
@@ -79,6 +87,6 @@ class PlayMasterMind
   end
   
   def guess_code
-    @guessed_code = ColorSelector.break_code
+    @guessed_code = ColorSelector.new.break_code
   end
 end

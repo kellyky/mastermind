@@ -4,6 +4,7 @@ require 'pry-byebug'
 class ColorSelector
   def initialize(code_maker)
     @@code_maker = code_maker
+    @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
   end
 
   def get_code
@@ -14,8 +15,7 @@ class ColorSelector
     end
   end
 
-  # if score is zero for both / only guess new colors
-  def self.break_code
+  def self.break_code(wrong_colors=[])
     if @@code_maker == :computer
       Player.break_code
     else
@@ -23,41 +23,47 @@ class ColorSelector
     end
   end
 
-  class Computer
-    def initialize
-      @color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
-    end
+  def colors
+    @@color_bank
+  end
+  
+  class Computer < ColorSelector
+    def initialize; end
 
     def set_code
       select_colors
     end
 
     def break_code
-      Computer.new.select_colors
+      Computer.select_colors
     end
 
-    def select_colors
+    def self.select_colors
+      puts ">>>>>>>>>>>>>>>>>>>>>>"
+      puts "Colors to choose from: #{@@color_bank}"
+      binding.pry
       colors = []
       4.times do
-        colors << @color_bank.shuffle.last
+        colors << @@color_bank.shuffle.last
       end
       colors
     end
 
     def colors
-      @color_bank
+      super
     end
   end
 
-  class Player
-    def initialize 
-      @color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
-    end
+  class Player < ColorSelector
+    def initialize; end
 
     def set_code
       puts "You can repeat colors if you'd like,"
+      sleep(0.2)
       puts "but please choose from colors the computer knows: :D"
+      sleep(0.2)
       puts "#{colors}"
+      sleep(0.2)
       Player.new.select_colors  # feels a bit off but it works
     end
 
@@ -70,16 +76,16 @@ class ColorSelector
       colors = []
       until colors.count == 4
         puts "state your choice for color #{counter + 1}."
+        sleep(0.2)
         color = gets.chomp
         colors << color.strip.to_sym
         counter += 1
       end
-      puts "Here's what you selected: #{colors}\n"
       colors
     end
 
     def colors
-      @color_bank
+      super
     end
   end
 end

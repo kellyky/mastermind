@@ -1,9 +1,11 @@
 require './lib/mastermind'
 require 'pry-byebug'
 
-guesses_remaining = 2
+guesses_remaining = 12
 
 new_game = PlayMasterMind.new(guesses_remaining)
 new_game.play_game(guesses_remaining)
 
-# PlayMasterMind.new_game
+
+# @color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
+
