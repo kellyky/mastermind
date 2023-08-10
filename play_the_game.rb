@@ -1,9 +1,9 @@
 require './lib/mastermind'
 require 'pry-byebug'
 
-this_many_guesses = 1
+guesses_remaining = 1
 
-# new_game = PlayMasterMind.new
-# new_game.start_new_game
+new_game = PlayMasterMind.new(guesses_remaining)
+new_game.play_game(guesses_remaining)
 
-PlayMasterMind.start_new_game
+# PlayMasterMind.new_game
