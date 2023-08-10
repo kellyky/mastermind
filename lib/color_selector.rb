@@ -57,7 +57,9 @@ class ColorSelector
   end
 
   class Player < ColorSelector
-    def initialize; end
+    def initialize
+      @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
+    end
 
     def set_code
       puts "You can repeat colors if you'd like,"
@@ -66,30 +68,71 @@ class ColorSelector
       sleep(0.5)
       puts "#{colors}"
       sleep(0.5)
-      Player.new.select_colors  # feels a bit off but it works
+      Player.new.set_colors
     end
 
     def self.break_code
-      Player.new.select_colors  # feels a bit off but it works
+      Player.new.guess_colors
     end
 
-    def select_colors
+    def set_colors
       counter = 0
-      colors = []
-      until colors.count == 4
-        puts "state your choice for color #{counter + 1}."
-        
-        sleep(0.5)
-        color = gets.chomp
-        sleep(0.5)
-        colors << color.strip.downcase.to_sym
+      selected_colors = []
+      until selected_colors.count == 4
+        tell_user_to_select_color(counter)
+        color = gets.chomp #.strip.downcase.to_sym
+        formatted_color = format_color(color)
+        if !@@color_bank.include?(formatted_color )
+          @@color_bank << formatted_color
+        end
+        selected_colors << formatted_color
         counter += 1
       end
-      colors
+      selected_colors
     end
 
-    def colors
-      super
+    def guess_colors
+      counter = 0
+      selected_colors = []
+      until selected_colors.count == 4
+        tell_user_to_select_color(counter)
+        color = gets.chomp #.strip.downcase.to_sym
+        formatted_color = format_color(color)
+        selected_colors << formatted_color
+        counter += 1
+      end
+      selected_colors
     end
+
+    def tell_user_to_select_color(counter)
+      puts "state your choice for color #{counter + 1}."
+      sleep(0.5)
+    end
+
+    def format_color(color)
+      color.strip.downcase.to_sym
+    end
+
+    # def select_colors
+      
+    #   counter = 0
+    #   colors = []
+    #   until colors.count == 4
+    #     puts "state your choice for color #{counter + 1}."
+    #     sleep(0.5)
+    #     color = gets.chomp.strip.downcase.to_sym
+    #     if !@@color_bank.include?(color )
+    #       @@color_bank << color
+    #     end
+    #     sleep(0.5)
+    #     colors << color
+    #     counter += 1
+    #   end
+    #   colors
+    # end
+
+    # def colors
+    #   @@color_bank
+    # end
   end
 end
