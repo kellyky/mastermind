@@ -61,11 +61,11 @@ class ColorSelector
 
     def set_code
       puts "You can repeat colors if you'd like,"
-      sleep(0.2)
+      sleep(0.5)
       puts "but please choose from colors the computer knows: :D"
-      sleep(0.2)
+      sleep(0.5)
       puts "#{colors}"
-      sleep(0.2)
+      sleep(0.5)
       Player.new.select_colors  # feels a bit off but it works
     end
 
@@ -78,8 +78,10 @@ class ColorSelector
       colors = []
       until colors.count == 4
         puts "state your choice for color #{counter + 1}."
-        sleep(0.2)
+        
+        sleep(0.5)
         color = gets.chomp
+        sleep(0.5)
         colors << color.strip.downcase.to_sym
         counter += 1
       end
