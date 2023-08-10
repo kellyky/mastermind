@@ -41,7 +41,6 @@ class ColorSelector
     def self.select_colors
       puts ">>>>>>>>>>>>>>>>>>>>>>"
       puts "Colors to choose from: #{@@color_bank}"
-      binding.pry
       colors = []
       4.times do
         colors << @@color_bank.shuffle.last

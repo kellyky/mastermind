@@ -87,6 +87,6 @@ class PlayMasterMind
   end
   
   def guess_code
-    @guessed_code = ColorSelector.new.break_code
+    @guessed_code = ColorSelector.break_code
   end
 end
