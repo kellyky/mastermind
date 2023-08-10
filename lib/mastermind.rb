@@ -27,7 +27,7 @@ class PlayMasterMind
     if guesses_remaining > 0
       play_turn(guesses_remaining)
     else
-      EndGame.better_luck_next_time
+      EndGame.better_luck_next_time(@encoded_colors)
     end
   end
 

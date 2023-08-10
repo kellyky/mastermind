@@ -8,8 +8,12 @@ class EndGame
     self.play_again?
   end
 
-  def self.better_luck_next_time
-    puts "Your 12 turns are up. Better luck next time!"
+  def self.better_luck_next_time(colors)
+    puts "Your 12 turns are up."
+    sleep(0.5)
+    puts "The code to crack was #{colors}."
+    sleep(0.5)
+    puts "Better luck next time!"
     sleep(0.5)
     self.play_again?
   end

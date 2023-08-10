@@ -38,7 +38,7 @@ I may change my mind on these!
 ## Quirks & Bugs
 - Correct input only, please and thanks 😈
   - When prompted for a 1 or 2, you need to enter 1 or 2
-  - When prompted for a color, any text you add gets added to color bank for guessing
+  - When prompted for a color, any text you add gets added to color bank for guessing (e.g. refridgerator or a typo'd orangge. no validation thus far)
 
 
 Test coverage was started for a much earlier version. Needs reworking. 
