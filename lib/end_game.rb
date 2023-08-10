@@ -16,7 +16,8 @@ class EndGame
     puts "would you like to play again? (1=yes, 2=no)"
     answer = gets.chomp
     if answer == "1"
-      PlayMasterMind.start_new_game # FIXME
+      new_game = PlayMasterMind.new(12)
+      new_game.play_game(12)
     else
       "ok, another time then!"
       exit

@@ -14,8 +14,8 @@ class ColorSelector
     end
   end
 
+  # if score is zero for both / only guess new colors
   def self.break_code
-    binding.pry
     if @@code_maker == :computer
       Player.break_code
     else
@@ -33,7 +33,6 @@ class ColorSelector
     end
 
     def break_code
-      binding.pry
       Computer.new.select_colors
     end
 

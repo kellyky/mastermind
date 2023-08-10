@@ -23,7 +23,6 @@ class PlayMasterMind
     @encoded_colors = ColorSelector.new(code_maker).get_code
   end
 
-  # I think this can stay as-is regardless of roles
   def play_game(guesses_remaining)
     if guesses_remaining == @guesses_remaining
       start_new_game
