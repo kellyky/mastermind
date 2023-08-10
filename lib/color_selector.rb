@@ -41,6 +41,8 @@ class ColorSelector
     def self.select_colors
       puts ">>>>>>>>>>>>>>>>>>>>>>"
       puts "Colors to choose from: #{@@color_bank}"
+      puts ">>>>>>>>>>>>>>>>>>>>>>"
+
       colors = []
       4.times do
         colors << @@color_bank.shuffle.last
@@ -77,7 +79,7 @@ class ColorSelector
         puts "state your choice for color #{counter + 1}."
         sleep(0.2)
         color = gets.chomp
-        colors << color.strip.to_sym
+        colors << color.strip.downcase.to_sym
         counter += 1
       end
       colors
