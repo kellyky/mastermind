@@ -16,14 +16,13 @@ For a more thorough description of gameplay and roles, check out this wikihow ar
 You should be ready to play!
 
 ## To Play
-In your terminal, navigate to this directory and run `ruby play_the_game.rb`. 
-
-Proceed as prompted. 
+In your terminal, navigate to this directory and run `ruby play_the_game.rb`. Proceed as prompted. 
 
 ## Features
 - Choose whether to make the code or break the code
   - If you are the code breaker: the computer sets the code and you do the fun part
   - If you are the code maker: watch the computer fail
+- Inputting a color not in the bank gets added to the bank
  
 Not quite a feature - you can manually edit `play_the_game.rb` to set the number of guesses to something other than 12. 
 
@@ -39,6 +38,7 @@ I may change my mind on these!
 ## Quirks & Bugs
 - Correct input only, please and thanks 😈
   - When prompted for a 1 or 2, you need to enter 1 or 2
-  - When prompted for a color, you need to choose from existing colors. Otherwise the computer won't be able to guess. 
+  - When prompted for a color, any text you add gets added to color bank for guessing
+
 
 Test coverage was started for a much earlier version. Needs reworking. 
