@@ -1,3 +1,5 @@
+# scratch pad for tracking guesses I mistakenly committed :D
+
 @color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
 
 
