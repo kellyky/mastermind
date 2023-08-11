@@ -2,36 +2,44 @@ require './lib/mastermind'
 require 'pry-byebug'
 
 class ColorSelector
-  def initialize(code_maker, code_breaker)
+  def initialize(code_maker, code_breaker, guesses_left=12)
+    @guesses_left = guesses_left
     @@code_maker = code_maker
     @@code_breaker = code_breaker
     @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
   end
 
+  def guesses_left
+    @guesses_left
+  end
+
   def get_code
     case @@code_maker
     when :computer
-      Computer.new.set_code
+      c = Computer.new(guesses_left)
+      .set_code
     when :player
       Player.new.set_code
     end
   end
 
-  def break_code
+  def break_code(guesses_left)
     case @@code_breaker
     when :computer
-      Computer.new.break_code
+      c = Computer.new(guesses_left)
+      c.break_code
     when :player
       Player.break_code
     end
   end
 
-  def colors
-    @@color_bank
-  end
-  
   class Computer < ColorSelector
-    def initialize
+    def initialize(guesses_left)
+      @guesses_left = guesses_left
+    end
+
+    def guesses_left
+      super
     end
 
     def set_code
@@ -44,6 +52,7 @@ class ColorSelector
 
     def select_colors
       puts ">>>>>>>>>>>>>>>>>>>>>>"
+      puts "#{guesses_left} guess left"
       puts "Colors to choose from: #{@@color_bank}"
       puts ">>>>>>>>>>>>>>>>>>>>>>"
 

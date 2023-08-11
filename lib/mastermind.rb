@@ -86,7 +86,11 @@ class PlayMasterMind
     @rating = Keys.new(red, white)
   end
   
+  def remaining_guesses
+    @remaining_guesses
+  end
+
   def guess_code
-    @guessed_code = @color_selector.break_code
+    @guessed_code = @color_selector.break_code(@remaining_guesses)
   end
 end
