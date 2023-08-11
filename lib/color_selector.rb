@@ -73,32 +73,16 @@ class ColorSelector
       sleep(0.2)
       puts "but please choose from colors the computer knows: :D"
       sleep(0.2)
-      puts "#{colors}"
+      puts "#{@@color_bank}"
       sleep(0.2)
-      Player.new.set_colors
+      Player.new.select_colors
     end
 
     def self.break_code
-      Player.new.guess_colors
+      Player.new.select_colors
     end
 
-    def set_colors
-      counter = 0
-      selected_colors = []
-      until selected_colors.count == 4
-        tell_user_to_select_color(counter)
-        color = gets.chomp
-        formatted_color = format_color(color)
-        if !@@color_bank.include?(formatted_color )
-          @@color_bank << formatted_color
-        end
-        selected_colors << formatted_color
-        counter += 1
-      end
-      selected_colors
-    end
-
-    def guess_colors  # might re-combine later? the difference is whether colors can be added
+    def select_colors
       counter = 0
       selected_colors = []
       until selected_colors.count == 4
