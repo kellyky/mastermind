@@ -23,22 +23,19 @@ In your terminal, navigate to this directory and run `ruby play_the_game.rb`. Pr
   - If you are the code breaker: the computer sets the code and you do the fun part
   - If you are the code maker: watch the computer fail
 - Inputting a color not in the bank gets added to the bank
+- Test mode where computer plays both parts. (Of course, this doesn't test the human player side)
  
 Not quite a feature - you can manually edit `play_the_game.rb` to set the number of guesses to something other than 12. 
 
 ### Coming Soon & Ideas:
-- difficulty levels for computer, human
-  - e.g. smaller or larger color bank... hints?  
-- possibly... ability to pull from larger color bank or for the code_maker (if its the human) to enter a color and have it added to the color bank
-- possibly up the skill of the computer
+- add strategies for the computer as code_breaker
 - fix / finish specs
 
-I may change my mind on these! 
 
 ## Quirks & Bugs
 - Correct input only, please and thanks 😈
   - When prompted for a 1 or 2, you need to enter 1 or 2
-  - When prompted for a color, any text you add gets added to color bank for guessing (e.g. refridgerator or a typo'd orangge. no validation thus far)
+  - When prompted for a color, stick to those in the color bank. 
 
 
 Test coverage was started for a much earlier version. Needs reworking. 
