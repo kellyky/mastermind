@@ -1,4 +1,3 @@
-require './lib/decrement_guess'
 require './lib/keys'
 require './lib/end_game'
 require './lib/role'
@@ -8,6 +7,7 @@ require 'pry-byebug'
 class PlayMasterMind
   def initialize(guesses_allowed)
     @guesses_allowed = guesses_allowed
+    @remaining_guesses = guesses_allowed
   end
 
   def start_new_game
@@ -32,11 +32,10 @@ class PlayMasterMind
   end
 
   def play_turn(guesses_remaining)
-    guess_count = DecrementGuess.new(guesses_remaining)
-    next_turn = guess_count.decrement_turn_counter
+    @remaining_guesses -= 1
     guess_code
     evaluate_guess
-    play_game(next_turn)
+    play_game(@remaining_guesses)
   end
 
   def evaluate_guess
@@ -51,12 +50,12 @@ class PlayMasterMind
 
     get_rating(red, white)
 
-    sleep(0.5)
+    sleep(0.2)
     puts "\n======================\n"
     puts "\nyour score: #{score}"
     puts "you guessed #{@guessed_code}"
     puts "\n======================\n"
-    sleep(0.5)
+    sleep(0.2)
 
     nil_score?
 

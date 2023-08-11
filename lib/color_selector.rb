@@ -58,11 +58,11 @@ class ColorSelector
 
     def set_code
       puts "You can repeat colors if you'd like,"
-      sleep(0.5)
+      sleep(0.2)
       puts "but please choose from colors the computer knows: :D"
-      sleep(0.5)
+      sleep(0.2)
       puts "#{colors}"
-      sleep(0.5)
+      sleep(0.2)
       Player.new.set_colors
     end
 
@@ -101,7 +101,7 @@ class ColorSelector
 
     def tell_user_to_select_color(counter)
       puts "state your choice for color #{counter + 1}."
-      sleep(0.5)
+      sleep(0.2)
     end
 
     def format_color(color)
