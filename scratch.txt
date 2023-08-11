@@ -1,0 +1,38 @@
+@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
+
+
+
+* * green red
+
+!orange, !indigo, !violet
+
+
+- yellow (spot 1 or 2)
+- blue (spot 1 or 2) !1
+
+
+- 1 each of each color
+
+your score: {:red=>"1", :white=>"1"}
+you guessed [:violet, :violet, :red, :red]
+
+your score: {:red=>"1", :white=>"1"}
+you guessed [:yellow, :yellow, :orange, :orange]
+
+your score: {:red=>"1", :white=>"1"}
+you guessed [:blue, :blue, :indigo, :indigo]
+
+your score: {:red=>"1", :white=>"3"}
+you guessed [:green, :green, :green, :green]
+
+your score: {:red=>"0", :white=>"2"}
+you guessed [:red, :red, :violet, :violet]
+
+your score: {:red=>"0", :white=>"4"}
+you guessed [:green, :red, :yellow, :blue]
+
+your score: {:red=>"0", :white=>"4"}
+you guessed [:blue, :yellow, :red, :green]
+
+your score: {:red=>"2", :white=>"0"}
+you guessed [:orange, :orange, :green, :red]

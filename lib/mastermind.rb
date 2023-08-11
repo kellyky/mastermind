@@ -6,8 +6,8 @@ require './lib/color_selector'
 require 'pry-byebug'
 
 class PlayMasterMind
-  def initialize(guesses_remaining)
-    @guesses_remaining = guesses_remaining
+  def initialize(guesses_allowed)
+    @guesses_allowed = guesses_allowed
   end
 
   def start_new_game
@@ -21,7 +21,7 @@ class PlayMasterMind
   end
 
   def play_game(guesses_remaining)
-    if guesses_remaining == @guesses_remaining
+    if guesses_remaining == @guesses_allowed
       start_new_game
     end
     if guesses_remaining > 0
