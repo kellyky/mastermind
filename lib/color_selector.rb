@@ -2,24 +2,27 @@ require './lib/mastermind'
 require 'pry-byebug'
 
 class ColorSelector
-  def initialize(code_maker)
+  def initialize(code_maker, code_breaker)
     @@code_maker = code_maker
+    @@code_breaker = code_breaker
     @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
   end
 
   def get_code
-    if @@code_maker == :computer
+    case @@code_maker
+    when :computer
       Computer.new.set_code
-    else
+    when :player
       Player.new.set_code
     end
   end
 
   def break_code
-    if @@code_maker == :computer
-      Player.break_code
-    else
+    case @@code_breaker
+    when :computer
       Computer.new.break_code
+    when :player
+      Player.break_code
     end
   end
 
