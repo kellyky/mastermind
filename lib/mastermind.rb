@@ -11,7 +11,7 @@ class PlayMasterMind
   end
 
   def start_new_game
-    @game_roles = Role.determine_roles
+    @game_roles = Role.welcome_to_mastermind
     @color_selector = ColorSelector.new(code_maker, code_breaker)
     @encoded_colors ||= ColorSelector.new(code_maker, code_breaker).get_code
   end
@@ -53,16 +53,13 @@ class PlayMasterMind
     end
 
     get_rating(correct, wrong)
-
-    sleep(0.2)
-    # puts "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
-    # puts "\nyour score: #{score}"
+    pause
 
     print_code
     print_score
 
     puts "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
-    sleep(0.2)
+    pause
 
     nil_score?
 
@@ -75,7 +72,6 @@ class PlayMasterMind
       print "#{color.to_s} | "
     end
     print " <<\n"
-    # puts "\n"
   end
 
   def print_score
@@ -110,5 +106,9 @@ class PlayMasterMind
 
   def guess_code
     @guessed_code = @color_selector.break_code(@remaining_guesses)
+  end
+
+  def pause(seconds=0.2)
+    sleep(seconds)
   end
 end

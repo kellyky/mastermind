@@ -45,8 +45,13 @@ class ColorSelector
   end
 
 
+  # TODO Refactor to move formatting / prettying methods 
   def new_line_pause(seconds)
     puts "\n"
+    pause(seconds)
+  end
+
+  def pause(seconds=0.2)
     sleep(seconds)
   end
 
@@ -89,7 +94,7 @@ class ColorSelector
 
     def set_code
       print "You can repeat colors if you'd like,"
-      sleep(0.2)
+      pause
       puts "but please choose from colors the computer knows: :D"
       new_line_pause(0.2)
       show_color_bank
@@ -118,7 +123,7 @@ class ColorSelector
     end
 
     def tell_user_to_select_color(counter)
-      sleep(0.4)
+      pause(0.4)
       print "#{animated_elipses}state your choice for color #{counter + 1}: "
       puts "\n"
       new_line_pause(0.2)
@@ -128,12 +133,12 @@ class ColorSelector
       color.strip.downcase.to_sym
     end
 
-
+  # TODO Refactor to move formatting / prettying methods 
     def animated_elipses
       print "\n."
-      sleep(0.2)
+      pause
       print "."
-      sleep(0.2)
+      pause
       print "."
     end
   end
