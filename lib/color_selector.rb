@@ -45,6 +45,12 @@ class ColorSelector
   end
 
 
+  def new_line_pause(seconds)
+    puts "\n"
+    sleep(seconds)
+  end
+
+
   class Computer < ColorSelector
     def initialize(guesses_left)
       @guesses_left = guesses_left
@@ -85,10 +91,8 @@ class ColorSelector
       print "You can repeat colors if you'd like,"
       sleep(0.2)
       puts "but please choose from colors the computer knows: :D"
-      puts "\n"
-      sleep(0.2)
+      new_line_pause(0.2)
       show_color_bank
-      # sleep(0.2)
       Player.new.select_colors
     end
 
@@ -97,7 +101,6 @@ class ColorSelector
     end
 
     def self.break_code
-      # Player.new.show_color_bank
       Player.new.select_colors
     end
 
@@ -116,18 +119,22 @@ class ColorSelector
 
     def tell_user_to_select_color(counter)
       sleep(0.4)
+      print "#{animated_elipses}state your choice for color #{counter + 1}: "
+      puts "\n"
+      new_line_pause(0.2)
+    end
+
+    def format_color(color)
+      color.strip.downcase.to_sym
+    end
+
+
+    def animated_elipses
       print "\n."
       sleep(0.2)
       print "."
       sleep(0.2)
       print "."
-      print "state your choice for color #{counter + 1}: "
-      puts "\n\n"
-      sleep(0.2)
-    end
-
-    def format_color(color)
-      color.strip.downcase.to_sym
     end
   end
 end
