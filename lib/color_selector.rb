@@ -36,13 +36,12 @@ class ColorSelector
   end
 
   def show_color_bank
-    print ">> | "
+    print "Colors to choose from: \n>> | "
     @@color_bank.each do |color|
       print "#{color.to_s} | "
     end
     print " <<\n"
     puts "\n"
-  
   end
 
 
@@ -89,7 +88,7 @@ class ColorSelector
       puts "\n"
       sleep(0.2)
       show_color_bank
-      sleep(0.2)
+      # sleep(0.2)
       Player.new.select_colors
     end
 
@@ -98,6 +97,7 @@ class ColorSelector
     end
 
     def self.break_code
+      # Player.new.show_color_bank
       Player.new.select_colors
     end
 

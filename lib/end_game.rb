@@ -9,9 +9,17 @@ class EndGame
   end
 
   def self.better_luck_next_time(colors)
-    puts "Your 12 turns are up. Better luck next time!\n\n"
-    sleep(0.2)
-    puts "The code was #{colors}"
+    # puts "The code was #{colors}"
+    print ">> The code was: >> | "
+    colors.each do |color|
+      print "#{color.to_s} | "
+    end
+    print " <<\n"
+    puts "\n\n"
+    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+
+
     sleep(0.2)
     self.play_again?
   end

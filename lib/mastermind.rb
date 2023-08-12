@@ -43,47 +43,65 @@ class PlayMasterMind
   end
 
   def evaluate_guess
-    red, white = [0, 0]
+    correct, wrong = [0, 0]
     for place in (0...4)
-      if merits_red_peg?(place)
-        red += 1
-      elsif merits_white_peg?(place)
-        white += 1
+      if merits_correct_peg?(place)
+        correct += 1
+      elsif merits_wrong_peg?(place)
+        wrong += 1
       end
     end
 
-    get_rating(red, white)
+    get_rating(correct, wrong)
 
     sleep(0.2)
-    puts "\n==============================================================\n"
-    puts "\nyour score: #{score}"
-    puts "you guessed #{@guessed_code}"
-    puts "\n==============================================================\n\n\n"
+    # puts "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
+    # puts "\nyour score: #{score}"
+
+    print_code
+    print_score
+
+    puts "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
     sleep(0.2)
 
     nil_score?
 
-    EndGame.we_have_a_winner if red == 4
+    EndGame.we_have_a_winner if correct == 4
   end
 
-  def merits_red_peg?(place)
+  def print_code
+    print "\n\n>>>>>>> You guessed: >> | "
+    @guessed_code.each do |color|
+      print "#{color.to_s} | "
+    end
+    print " <<\n"
+    # puts "\n"
+  end
+
+  def print_score
+    print "\n>> Score this round: >> | Red: #{score[:right_placement]} | White: #{score[:wrong_placement]} | "
+    print " <<<<<<<<<<<<<<<\n"
+    puts "\n"
+  end
+
+  def merits_correct_peg?(place)
     @guessed_code[place] == @encoded_colors[place]
   end
 
-  def merits_white_peg?(place)
+  def merits_wrong_peg?(place)
     @encoded_colors.any?(@guessed_code[place])
   end
 
   def nil_score?  # working towards using this to narrow color range for computer
-    @score[:red] == "0" && @score[:white] == "0"
+    @score[:correct] == "0" && @score[:wrong] == "0"
   end
 
   def score
-    @score = { red: "#{@rating.red}", white: "#{@rating.white}" }
+    @score = { right_placement: "#{@rating.correct_place}", wrong_placement: "#{@rating.wrong_place}" }
   end
 
-  def get_rating(red, white)
-    @rating = Keys.new(red, white)
+  def get_rating(correct, wrong)
+    @rating = Keys.new(correct, wrong)
   end
   
   def remaining_guesses

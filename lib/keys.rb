@@ -2,16 +2,16 @@ require './lib/mastermind'
 require 'pry-byebug'
 
 class Keys
-  def initialize(red=0, white=0)
-    @red = red  # right color/right placement
-    @white = white  # right color / wrong placement
+  def initialize(correct_place=0, wrong_place=0)
+    @correct_place = correct_place  # right color/right placement
+    @wrong_place = wrong_place  # right color / wrong placement
   end
 
-  def red
-    @red
+  def correct_place
+    @correct_place
   end
 
-  def white
-    @white
+  def wrong_place
+    @wrong_place
   end
 end
