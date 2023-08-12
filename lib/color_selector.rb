@@ -2,12 +2,14 @@ require './lib/mastermind'
 require 'pry-byebug'
 
 class ColorSelector
+  
   def initialize(code_maker, code_breaker, guesses_left=12)
     @guesses_left = guesses_left
     @@code_maker = code_maker
     @@code_breaker = code_breaker
     @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
   end
+
 
   def guesses_left
     @guesses_left
@@ -33,6 +35,21 @@ class ColorSelector
     end
   end
 
+  def show_color_bank
+    print ">> | "
+    @@color_bank.each do |color|
+      print "#{color.to_s} | "
+    end
+    print " <<\n"
+    puts "\n"
+    print "."
+    sleep(0.2)
+    print "."
+    sleep(0.2)
+    print "."
+  end
+
+
   class Computer < ColorSelector
     def initialize(guesses_left)
       @guesses_left = guesses_left
@@ -53,7 +70,7 @@ class ColorSelector
     def select_colors
       puts ">>>>>>>>>>>>>>>>>>>>>>"
       puts "#{guesses_left} guess left"
-      puts "Colors to choose from: #{@@color_bank}"
+      puts "Colors to choose from: #{show_color_bank}"
       puts ">>>>>>>>>>>>>>>>>>>>>>"
 
       selected_colors = []
@@ -62,6 +79,10 @@ class ColorSelector
       end
       selected_colors
     end
+
+    def show_color_bank
+      super
+    end
   end
 
   class Player < ColorSelector
@@ -69,13 +90,18 @@ class ColorSelector
     end
 
     def set_code
-      puts "You can repeat colors if you'd like,"
+      print "You can repeat colors if you'd like,"
       sleep(0.2)
       puts "but please choose from colors the computer knows: :D"
+      puts "\n"
       sleep(0.2)
-      puts "#{@@color_bank}"
+      show_color_bank
       sleep(0.2)
       Player.new.select_colors
+    end
+
+    def show_color_bank
+      super
     end
 
     def self.break_code
@@ -96,7 +122,16 @@ class ColorSelector
     end
 
     def tell_user_to_select_color(counter)
-      puts "state your choice for color #{counter + 1}."
+      puts ""
+      sleep(0.2)
+      sleep(0.2)
+      print "."
+      sleep(0.2)
+      print "."
+      sleep(0.2)
+      print "."
+      print "state your choice for color #{counter + 1}: "
+      puts "\n\n"
       sleep(0.2)
     end
 
