@@ -42,11 +42,7 @@ class ColorSelector
     end
     print " <<\n"
     puts "\n"
-    print "."
-    sleep(0.2)
-    print "."
-    sleep(0.2)
-    print "."
+  
   end
 
 
@@ -68,10 +64,7 @@ class ColorSelector
     end
 
     def select_colors
-      puts ">>>>>>>>>>>>>>>>>>>>>>"
-      puts "#{guesses_left} guess left"
-      puts "Colors to choose from: #{show_color_bank}"
-      puts ">>>>>>>>>>>>>>>>>>>>>>"
+      show_color_bank
 
       selected_colors = []
       4.times do
@@ -122,10 +115,8 @@ class ColorSelector
     end
 
     def tell_user_to_select_color(counter)
-      puts ""
-      sleep(0.2)
-      sleep(0.2)
-      print "."
+      sleep(0.4)
+      print "\n."
       sleep(0.2)
       print "."
       sleep(0.2)

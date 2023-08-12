@@ -4,7 +4,7 @@ require 'pry-byebug'
 class Role
   def self.determine_roles
     puts "\n"
-    puts "==========================================================================TODO make me prettier"
+    puts "=============================================================="
     puts "\n"
     sleep(0.2)
     print "     >>>>>>>>>>     "
@@ -50,6 +50,7 @@ class Role
       puts "code breaker it is! The computer sets the code and you try to break it."
       puts "\n"
       sleep(0.2)
+      puts "Before we get started, these are the colors to choose from:"
       puts "\n"
       sleep(0.2)
       @code_maker = :computer

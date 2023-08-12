@@ -9,17 +9,20 @@ class EndGame
   end
 
   def self.better_luck_next_time(colors)
-    puts "Your 12 turns are up."
+    puts "Your 12 turns are up. Better luck next time!\n\n"
     sleep(0.2)
-    puts "The code to crack was #{colors}."
-    sleep(0.2)
-    puts "Better luck next time!"
+    puts "The code was #{colors}"
     sleep(0.2)
     self.play_again?
   end
 
   def self.play_again?
-    puts "would you like to play again? (1=yes, 2=no)"
+    print "\n\n."
+    sleep(0.2)
+    print "."
+    sleep(0.2)
+    print "."
+    print "Select 1 to play again and any other alphanumeric key to quit.\n\n"
     sleep(0.2)
     answer = gets.chomp
     if answer == "1"

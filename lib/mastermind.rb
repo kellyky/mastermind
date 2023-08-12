@@ -55,10 +55,10 @@ class PlayMasterMind
     get_rating(red, white)
 
     sleep(0.2)
-    puts "\n======================\n"
+    puts "\n==============================================================\n"
     puts "\nyour score: #{score}"
     puts "you guessed #{@guessed_code}"
-    puts "\n======================\n"
+    puts "\n==============================================================\n\n\n"
     sleep(0.2)
 
     nil_score?
