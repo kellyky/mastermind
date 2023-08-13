@@ -11,7 +11,6 @@ class ColorSelector
     @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
   end
 
-
   def guesses_left
     @guesses_left
   end
@@ -79,6 +78,8 @@ class ColorSelector
 
   class Player < ColorSelector
     def initialize
+      @selected_colors = []
+      @color_counter = 0
     end
 
     def set_code
@@ -99,25 +100,33 @@ class ColorSelector
     end
 
     def select_colors
-      counter = 0
-      selected_colors = []
-      until selected_colors.count == 4
-        tell_user_to_select_color(counter)
-        color = gets.chomp
-        PrettyDisplay.new_line_pause
-        formatted_color = format_color(color)
-        selected_colors << formatted_color
-        counter += 1
+      until @selected_colors.count == 4
+        select_color
+        @color_counter += 1
       end
-      selected_colors
+      @selected_colors
     end
 
-    def tell_user_to_select_color(counter)
+    def select_color(color = "")
+      tell_user_to_select_color
+      color = gets.chomp
+      PrettyDisplay.new_line_pause
+      formatted_color = format_color(color)
+      validate_color(formatted_color)
+      @selected_colors << formatted_color
+    end
+
+    def validate_color(color)
+      binding.pry
+      return if @@color_bank.any?{ |c| c.match?(color.slice(0..2))}
+      puts "Please choose an available color."
+      select_color(color)
+    end
+
+    def tell_user_to_select_color
       PrettyDisplay.pause(0.4)
-      print "#{PrettyDisplay.animated_elipses}state your choice for color #{counter + 1}: "
-      # puts "\n"
+      print "#{PrettyDisplay.animated_elipses}state your choice for color #{@color_counter + 1}: "
       PrettyDisplay.new_line_pause(0.2, 3)
-      # puts "\n"
     end
 
     def format_color(color)

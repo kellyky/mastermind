@@ -29,13 +29,14 @@ class Role
     else
       "TODO: add validation of some sort"
     end
-    @game_roles = { code_maker: @code_maker, code_breaker: @code_breaker }
+    { code_maker: @code_maker, code_breaker: @code_breaker }
   end
 
   def self.computer_code_breaker
     PrettyDisplay.new_line_pause
     puts "code maker it is! You set the code and the computer will try to break it."
     PrettyDisplay.new_line_pause
+
     @code_maker = :player
     @code_breaker = :computer
   end
@@ -46,6 +47,7 @@ class Role
     PrettyDisplay.new_line_pause
     puts "Before we get started, these are the colors to choose from:"
     PrettyDisplay.new_line_pause
+
     @code_maker = :computer
     @code_breaker = :player
   end
@@ -53,6 +55,7 @@ class Role
   def self.test_mode
     PrettyDisplay.new_line_pause
     puts "test mode it is! The computer plays both parts"
+
     @code_maker = :computer
     @code_breaker = :computer
   end

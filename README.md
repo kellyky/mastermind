@@ -28,6 +28,8 @@ In your terminal, navigate to this directory and run `ruby play_the_game.rb`. Pr
 Not quite a feature - you can manually edit `play_the_game.rb` to set the number of guesses to something other than 12. 
 
 ### Coming Soon & Ideas:
+- accept first 3 letters of color - or something like that
+- validation of user input 
 - add strategies for the computer as code_breaker
 - fix / finish specs
 

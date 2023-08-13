@@ -56,15 +56,12 @@ class PlayMasterMind
     end
 
     get_rating(correct, wrong)
-    pause
-
+    PrettyDisplay.pause
     print_code
     print_score
 
     puts "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
-    pause
-
-    nil_score?
+    PrettyDisplay.pause
 
     EndGame.we_have_a_winner if correct == 4
   end
@@ -91,10 +88,6 @@ class PlayMasterMind
     @encoded_colors.any?(@guessed_code[place])
   end
 
-  def nil_score?  # working towards using this to narrow color range for computer
-    @score[:correct] == "0" && @score[:wrong] == "0"
-  end
-
   def score
     @score = { right_placement: "#{@rating.correct_place}", wrong_placement: "#{@rating.wrong_place}" }
   end
@@ -109,9 +102,5 @@ class PlayMasterMind
 
   def guess_code
     @guessed_code = @color_selector.break_code(@remaining_guesses)
-  end
-
-  def pause(seconds=0)
-    sleep(seconds)
   end
 end
