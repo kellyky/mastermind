@@ -5,7 +5,7 @@ require 'pry-byebug'
 # TODO rename class, I don't like Role. Maybe CodeBreaker...
 # TODO refactor - do we want to keep these all as class methods?
 class Role
-  def self.determine_roles
+  def self.set_codebreaker
     puts "Do you want to set the code or break the code?"
     pause
     print "(1 = set the code, 2 = break the code, 3 = test mode)"
@@ -13,8 +13,11 @@ class Role
     self.new_line_pause
 
     answer = gets.chomp
+    self.evaluate_choice(answer)
+  end
 
-    case answer
+  def self.evaluate_choice(choice)
+    case choice
     when "1"
       self.computer_code_breaker
     when "2"

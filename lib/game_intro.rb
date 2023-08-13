@@ -15,7 +15,7 @@ class GameIntro
     self.new_line_pause
     puts "In this version, you play against the computer."
     self.new_line_pause(0.4)
-    Role.determine_roles
+    Role.set_codebreaker
   end
 
   def self.new_line_pause(seconds=0)
