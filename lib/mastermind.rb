@@ -1,4 +1,5 @@
 require './lib/keys'
+require './lib/game_intro'
 require './lib/end_game'
 require './lib/role'
 require './lib/color_selector'
@@ -11,7 +12,7 @@ class PlayMasterMind
   end
 
   def start_new_game
-    @game_roles = Role.welcome_to_mastermind
+    @game_roles = GameIntro.welcome
     @color_selector = ColorSelector.new(code_maker, code_breaker)
     @encoded_colors ||= ColorSelector.new(code_maker, code_breaker).get_code
   end

@@ -1,26 +1,10 @@
 require './lib/mastermind'
+require './lib/game_intro'
 require 'pry-byebug'
 
 # TODO rename class, I don't like Role. Maybe CodeBreaker...
 # TODO refactor - do we want to keep these all as class methods?
 class Role
-  # TODO Refactor - consider NewGame or similar class for this method
-  # Picking codemaker doesn't need to know about the welcome text
-  def self.welcome_to_mastermind
-    puts "\n"
-    puts "=============================================================="
-    self.new_line_pause
-    print "     >>>>>>>>>>     Welcome to Mastermind!     <<<<<<<<<<     "
-    self.new_line_pause
-    self.new_line_pause
-    print "#{self.animated_elipses}a text-based version of the classic 2-player code-breaking game, " 
-    puts "\nwhere 1 player sets a code, and the other player attempts to break it."
-    self.new_line_pause
-    puts "In this version, you play against the computer."
-    self.new_line_pause(0.4)
-    self.determine_roles
-  end
-
   def self.determine_roles
     puts "Do you want to set the code or break the code?"
     pause
