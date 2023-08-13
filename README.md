@@ -19,25 +19,16 @@ You should be ready to play!
 In your terminal, navigate to this directory and run `ruby play_the_game.rb`. Proceed as prompted. 
 
 ## Features
-- Choose whether to make the code or break the code
+- Choose whether to make the code or break the code (or secret test mode)
   - If you are the code breaker: the computer sets the code and you do the fun part
   - If you are the code maker: watch the computer fail
-- Inputting a color not in the bank gets added to the bank
-- Test mode! The computer plays both parts. (Of course, this only tests the computer side of things 😆. I may revert this once I have test coverage in better shape)
+  - In test mode, the computer plays both parts. Of course this doesn't automate the player portions. 
+- You only need to type the first 3 letters of colors
  
-Not quite a feature - you can manually edit `play_the_game.rb` to set the number of guesses to something other than 12. 
-
 ### Coming Soon & Ideas:
-- accept first 3 letters of color - or something like that
-- validation of user input 
 - add strategies for the computer as code_breaker
 - fix / finish specs
 
 
 ## Quirks & Bugs
-- Correct input only, please and thanks 😈
-  - When prompted for a 1 or 2, you need to enter 1 or 2
-  - When prompted for a color, stick to those in the color bank. 
-
-
-Test coverage was started for a much earlier version. Needs reworking. 
+N/a (I think) - except test coverage. Test coverage was started for a much earlier version. Needs reworking. 

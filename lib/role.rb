@@ -10,7 +10,7 @@ class Role
   def self.set_codebreaker
     puts "Do you want to set the code or break the code?"
     PrettyDisplay.pause
-    print "(1 = set the code, 2 = break the code, 3 = test mode)"
+    print "(1 = set the code, 2 = break the code)"
     PrettyDisplay.new_line_pause
     PrettyDisplay.new_line_pause
 
@@ -27,7 +27,9 @@ class Role
     when "3"
       self.test_mode
     else
-      "TODO: add validation of some sort"
+      puts "Hm#{PrettyDisplay.animated_elipses} I don\'t have a game mode for that. Let\'s try that again."
+      PrettyDisplay.new_line_pause
+      self.set_codebreaker
     end
     { code_maker: @code_maker, code_breaker: @code_breaker }
   end

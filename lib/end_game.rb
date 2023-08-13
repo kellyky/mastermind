@@ -20,7 +20,6 @@ class EndGame
     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 
-
     sleep(0.2)
     self.play_again?
   end
@@ -31,7 +30,7 @@ class EndGame
     print "."
     sleep(0.2)
     print "."
-    print "Select 1 to play again and any other alphanumeric key to quit.\n\n"
+    print "Select 1 to play again, 2 (or anything else) to quit.\n\n"
     sleep(0.2)
     answer = gets.chomp
     if answer == "1"
