@@ -112,15 +112,25 @@ class ColorSelector
       color = gets.chomp
       PrettyDisplay.new_line_pause
       formatted_color = format_color(color)
-      validate_color(formatted_color)
-      @selected_colors << formatted_color
+      if validate_color?(color)
+        @selected_colors << get_full_color_name(formatted_color)
+      else
+        puts "Please choose an available color. The first 3 letters should be enough!"
+        select_color(color)
+      end
     end
 
-    def validate_color(color)
-      binding.pry
-      return if @@color_bank.any?{ |c| c.match?(color.slice(0..2))}
-      puts "Please choose an available color."
-      select_color(color)
+
+    def get_full_color_name(color)
+      @@color_bank.each do |bank_color|
+        if bank_color.match?(color.slice(0..2))
+          return bank_color
+        end
+      end
+    end
+
+    def validate_color?(color)
+      @@color_bank.any?{ |bank_color| color.match?(bank_color.slice(0..2))}
     end
 
     def tell_user_to_select_color
