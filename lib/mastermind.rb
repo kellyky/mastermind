@@ -75,8 +75,8 @@ class PlayMasterMind
   end
 
   def print_score
-    print "\n>> Score this round: >> | Red: #{score[:right_placement]} | White: #{score[:wrong_placement]} | "
-    print " <<<<<<<<<<<<<<<\n"
+    print "\n >> Black: #{score[:right_placement]} - i.e. #{score[:right_placement]} space(s) have the RIGHT color in its space"
+    print "\n >> White: #{score[:wrong_placement]} - i.e. #{score[:wrong_placement]} space(s) have the WRONG color - BUT the color is in the 4-digit code" 
     puts "\n"
   end
 
@@ -108,7 +108,7 @@ class PlayMasterMind
     @guessed_code = @color_selector.break_code(@remaining_guesses)
   end
 
-  def pause(seconds=0.2)
+  def pause(seconds=0)
     sleep(seconds)
   end
 end

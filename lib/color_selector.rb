@@ -51,7 +51,7 @@ class ColorSelector
     pause(seconds)
   end
 
-  def pause(seconds=0.2)
+  def pause(seconds=0)
     sleep(seconds)
   end
 

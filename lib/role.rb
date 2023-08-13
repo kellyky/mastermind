@@ -77,12 +77,12 @@ class Role
     print "."
   end
 
-  def self.new_line_pause(seconds=0.2)
+  def self.new_line_pause(seconds=0)
     puts "\n"
     sleep(seconds)
   end
 
-  def self.pause(seconds=0.2)
+  def self.pause(seconds=0)
     sleep(seconds)
   end
 end
