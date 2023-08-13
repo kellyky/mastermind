@@ -1,3 +1,4 @@
+require './lib/pretty_display'
 require './lib/mastermind'
 require 'pry-byebug'
 
@@ -44,18 +45,6 @@ class ColorSelector
     puts "\n"
   end
 
-
-  # TODO Refactor to move formatting / prettying methods 
-  def new_line_pause(seconds)
-    puts "\n"
-    pause(seconds)
-  end
-
-  def pause(seconds=0)
-    sleep(seconds)
-  end
-
-
   class Computer < ColorSelector
     def initialize(guesses_left)
       @guesses_left = guesses_left
@@ -94,9 +83,9 @@ class ColorSelector
 
     def set_code
       print "You can repeat colors if you'd like,"
-      pause
+      PrettyDisplay.pause
       puts "but please choose from colors the computer knows: :D"
-      new_line_pause(0.2)
+      PrettyDisplay.new_line_pause(0.2)
       show_color_bank
       Player.new.select_colors
     end
@@ -115,6 +104,7 @@ class ColorSelector
       until selected_colors.count == 4
         tell_user_to_select_color(counter)
         color = gets.chomp
+        PrettyDisplay.new_line_pause
         formatted_color = format_color(color)
         selected_colors << formatted_color
         counter += 1
@@ -123,23 +113,15 @@ class ColorSelector
     end
 
     def tell_user_to_select_color(counter)
-      pause(0.4)
-      print "#{animated_elipses}state your choice for color #{counter + 1}: "
-      puts "\n"
-      new_line_pause(0.2)
+      PrettyDisplay.pause(0.4)
+      print "#{PrettyDisplay.animated_elipses}state your choice for color #{counter + 1}: "
+      # puts "\n"
+      PrettyDisplay.new_line_pause(0.2, 3)
+      # puts "\n"
     end
 
     def format_color(color)
       color.strip.downcase.to_sym
-    end
-
-  # TODO Refactor to move formatting / prettying methods 
-    def animated_elipses
-      print "\n."
-      pause
-      print "."
-      pause
-      print "."
     end
   end
 end

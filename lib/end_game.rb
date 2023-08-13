@@ -1,3 +1,4 @@
+require './lib/pretty_display'
 require './lib/mastermind'
 require 'pry-byebug'
 
