@@ -123,14 +123,16 @@ class ColorSelector
 
     def get_full_color_name(color)
       @@color_bank.each do |bank_color|
-        if bank_color.match?(color.slice(0..2))
+        if bank_color.match?(color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
           return bank_color
         end
       end
     end
 
     def validate_color?(color)
-      @@color_bank.any?{ |bank_color| color.match?(bank_color.slice(0..2))}
+      @@color_bank.any? do |bank_color|
+        color.match?(bank_color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
+      end
     end
 
     def tell_user_to_select_color

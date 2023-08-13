@@ -47,7 +47,9 @@ class Role
     PrettyDisplay.new_line_pause
     puts "code breaker it is! The computer sets the code and you try to break it."
     PrettyDisplay.new_line_pause
-    puts "Before we get started, these are the colors to choose from:"
+    puts "Before we get started, below are the colors to choose from."
+    PrettyDisplay.new_line_pause(0.1, 0)
+    puts "You can type the whole color name out - or just the furst 3 letters."
     PrettyDisplay.new_line_pause
 
     @code_maker = :computer
