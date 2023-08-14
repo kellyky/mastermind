@@ -129,7 +129,7 @@ class ColorSelector
     end
 
     def tell_user_to_select_color
-      print "#{PrettyDisplay.animated_elipses}state your choice for color #{@color_counter + 1}: "
+      print "#{PrettyDisplay.animated_elipses}select a color for 'place' #{@color_counter + 1}: "
     end
 
     def format_color(color)

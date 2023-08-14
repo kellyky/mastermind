@@ -31,29 +31,19 @@ class Role
   end
 
   def self.computer_code_breaker
-    # PrettyDisplay.puts_pause(">>>==============================================================<<<", 2)
-    # PrettyDisplay.puts_pause("\n>>> The Rules & Gameplay:")
-
-    PrettyDisplay.animated_text("\ncode maker it is! You set a code for the computer to attempt to break.\n\n")
-
+    PrettyDisplay.animated_text("\ncode maker it is! First, you'll be prompted to create a 4-item code, 1 color at a time. \nThen, the computer will try to break it.\n\n")
     @code_maker = :player
     @code_breaker = :computer
   end
 
   def self.player_code_breaker
-    # PrettyDisplay.puts_pause(">>>==============================================================<<<", 2)
-    # PrettyDisplay.puts_pause("\n>>> The Rules & Gameplay:")
-    PrettyDisplay.puts_pause("\ncode breaker it is! Your goal is to crack a 4-color code set by the computer.", 2)
-
+    PrettyDisplay.puts_pause("\ncode breaker it is! The computer has created a 4-'place' code. \nYOUR goal is to crack a 4-color code set by the computer.", 2)
     @code_maker = :computer
     @code_breaker = :player
   end
 
   def self.test_mode
-    # PrettyDisplay.puts_pause(">>>==============================================================<<<", 2)
     PrettyDisplay.puts_pause("\ntest mode it is! The computer plays both parts\n")
-    
-
     @code_maker = :computer
     @code_breaker = :computer
   end
