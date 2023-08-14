@@ -4,41 +4,34 @@ require 'pry-byebug'
 
 class EndGame
   def self.we_have_a_winner
-    puts "whoohoo, you win, you codebreaker, you!!!"
-    sleep(0.2)
+    PrettyDisplay.puts_pause("whoohoo, you win, you codebreaker, you!!!", 2)
     self.play_again?
   end
 
   def self.better_luck_next_time(colors)
-    # puts "The code was #{colors}"
+    PrettyDisplay.puts_pause("Ope, your 12 guesses are up.", 2)
     print ">> The code was: >> | "
     colors.each do |color|
       print "#{color.to_s} | "
     end
-    print " <<\n"
-    puts "\n\n"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    PrettyDisplay.puts_pause(" <<", 3)
 
-    sleep(0.2)
     self.play_again?
   end
 
   def self.play_again?
-    print "\n\n."
-    sleep(0.2)
-    print "."
-    sleep(0.2)
-    print "."
-    print "Select 1 to play again, 2 (or anything else) to quit.\n\n"
-    sleep(0.2)
+    PrettyDisplay.puts_pause("Would you like to play again? (1 = yes, 2 = no)")
     answer = gets.chomp
-    if answer == "1"
+    case answer
+    when "1"
       new_game = PlayMasterMind.new(12)
       new_game.play_game(12)
+    when "2"
+      PrettyDisplay.puts_pause("\nok, another time then!")
+      exit
     else
-      "ok, another time then!"
-      sleep(0.2)
+      PrettyDisplay.animated_elipses
+      PrettyDisplay.puts_pause("Hm, I don't know that one. I'm going to bed though. Another time!")
       exit
     end
   end

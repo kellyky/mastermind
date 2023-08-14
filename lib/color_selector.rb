@@ -18,8 +18,7 @@ class ColorSelector
   def get_code
     case @@code_maker
     when :computer
-      c = Computer.new(guesses_left)
-      .set_code
+      Computer.new(guesses_left).set_code
     when :player
       Player.new.set_code
     end
@@ -28,20 +27,18 @@ class ColorSelector
   def break_code(guesses_left)
     case @@code_breaker
     when :computer
-      c = Computer.new(guesses_left)
-      c.break_code
+      Computer.new(guesses_left).break_code
     when :player
       Player.break_code
     end
   end
 
   def show_color_bank
-    print "Colors to choose from: \n>> | "
+    print "\nColors to choose from: \n>> | "
     @@color_bank.each do |color|
       print "#{color.to_s} | "
     end
-    print " <<\n"
-    puts "\n"
+    print " <<\n\n\n"
   end
 
   class Computer < ColorSelector
@@ -83,10 +80,9 @@ class ColorSelector
     end
 
     def set_code
-      print "You can repeat colors if you'd like,"
-      PrettyDisplay.pause
-      puts "but please choose from colors the computer knows: :D"
-      PrettyDisplay.new_line_pause(0.2)
+      PrettyDisplay.animated_text("You can repeat colors if you'd like, but be sure to choose colors the computer knows. \n")
+      PrettyDisplay.animated_text("You can type just the first 3 letters of the color - I'll understand! :D\n\n")
+
       show_color_bank
       Player.new.select_colors
     end
@@ -110,12 +106,14 @@ class ColorSelector
     def select_color(color = "")
       tell_user_to_select_color
       color = gets.chomp
-      PrettyDisplay.new_line_pause
+      puts ""
+      # PrettyDisplay.new_line_pause
       formatted_color = format_color(color)
       if validate_color?(color)
         @selected_colors << get_full_color_name(formatted_color)
       else
-        puts "Please choose an available color. The first 3 letters should be enough!"
+        PrettyDisplay.puts_pause("Please choose an available color. The first 3 letters should be enough!")
+        # puts "Please choose an available color. The first 3 letters should be enough!"
         select_color(color)
       end
     end
@@ -136,9 +134,7 @@ class ColorSelector
     end
 
     def tell_user_to_select_color
-      PrettyDisplay.pause(0.4)
       print "#{PrettyDisplay.animated_elipses}state your choice for color #{@color_counter + 1}: "
-      PrettyDisplay.new_line_pause(0.2, 3)
     end
 
     def format_color(color)

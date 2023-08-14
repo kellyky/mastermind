@@ -56,18 +56,15 @@ class PlayMasterMind
     end
 
     get_rating(correct, wrong)
-    PrettyDisplay.pause
     print_code
     print_score
-
-    puts "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
-    PrettyDisplay.pause
+    PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
 
     EndGame.we_have_a_winner if correct == 4
   end
 
   def print_code
-    print "\n\n>>>>>>> You guessed: >> | "
+    print ">>>>>>> You guessed: >> | "
     @guessed_code.each do |color|
       print "#{color.to_s} | "
     end
@@ -75,9 +72,8 @@ class PlayMasterMind
   end
 
   def print_score
-    print "\n >> Black: #{score[:right_placement]} - i.e. #{score[:right_placement]} space(s) have the RIGHT color in its space"
-    print "\n >> White: #{score[:wrong_placement]} - i.e. #{score[:wrong_placement]} space(s) have the WRONG color - BUT the color is in the 4-digit code" 
-    puts "\n"
+    PrettyDisplay.puts_pause("\n >> Black: #{score[:right_placement]} - i.e. #{score[:right_placement]} space(s) have the RIGHT color in its space")
+    PrettyDisplay.puts_pause(" >> White: #{score[:wrong_placement]} - i.e. #{score[:wrong_placement]} space(s) have the WRONG color - BUT the color does belong somewhere else in the code")
   end
 
   def merits_correct_peg?(place)
