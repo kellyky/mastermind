@@ -16,7 +16,7 @@ class PrettyDisplay
     print "."
   end
 
-  def self.animated_text(text=[], seconds = 0.018)
+  def self.animated_text(text="...", seconds = 0.008)
     text.split("").each do |word|
       print word
       sleep(seconds)

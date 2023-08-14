@@ -80,9 +80,6 @@ class ColorSelector
     end
 
     def set_code
-      PrettyDisplay.animated_text("You can repeat colors if you'd like, but be sure to choose colors the computer knows. \n")
-      PrettyDisplay.animated_text("You can type just the first 3 letters of the color - I'll understand! :D\n\n")
-
       show_color_bank
       Player.new.select_colors
     end
@@ -107,13 +104,11 @@ class ColorSelector
       tell_user_to_select_color
       color = gets.chomp
       puts ""
-      # PrettyDisplay.new_line_pause
       formatted_color = format_color(color)
       if validate_color?(color)
         @selected_colors << get_full_color_name(formatted_color)
       else
         PrettyDisplay.puts_pause("Please choose an available color. The first 3 letters should be enough!")
-        # puts "Please choose an available color. The first 3 letters should be enough!"
         select_color(color)
       end
     end

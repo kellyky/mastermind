@@ -15,6 +15,7 @@ class PlayMasterMind
   def start_new_game
     GameIntro.welcome
     @game_roles = Role.set_codebreaker
+    GameIntro.rules
     @color_selector = ColorSelector.new(code_maker, code_breaker)
     @encoded_colors ||= ColorSelector.new(code_maker, code_breaker).get_code
   end
