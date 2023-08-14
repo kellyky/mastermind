@@ -1,0 +1,25 @@
+>>>>>>> You guessed: >> | violet | violet | violet | indigo |  <<
+
+ >> Black: 1 - i.e. 1 space(s) have the RIGHT color in its space
+ >> White: 3 - i.e. 3 space(s) have the WRONG color - BUT the color does belong somewhere else in the code
+
+-- violet and indigo are colors
+
+>>>>>>> You guessed: >> | indigo | indigo | indigo | violet |  <<
+
+ >> Black: 1 - i.e. 1 space(s) have the RIGHT color in its space
+ >> White: 3 - i.e. 3 space(s) have the WRONG color - BUT the color does belong somewhere else in the code
+
+>>>>>>> You guessed: >> | indigo | violet | indigo | violet |  <<
+
+ >> Black: 2 - i.e. 2 space(s) have the RIGHT color in its space
+ >> White: 2 - i.e. 2 space(s) have the WRONG color - BUT the color does belong somewhere else in the code
+
+
+**************>>>>>>> You guessed: >> | [:red, :orange, :yellow, :green, :blue, :indigo, :violet] | red | red | indigo |  <<
+******************typo type not caught -- rred results in returning the whole color bank, hm...
+
+ >> Black: 0 - i.e. 0 space(s) have the RIGHT color in its space
+ >> White: 3 - i.e. 3 space(s) have the WRONG color - BUT the color does belong somewhere else in the code
+
+

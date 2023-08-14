@@ -105,10 +105,10 @@ class ColorSelector
       color = gets.chomp
       puts ""
       formatted_color = format_color(color)
-      if validate_color?(color)
+      if validate_color?(formatted_color)
         @selected_colors << get_full_color_name(formatted_color)
       else
-        PrettyDisplay.puts_pause("Please choose an available color. The first 3 letters should be enough!")
+        PrettyDisplay.puts_pause("Hm, I don't know that one. Please choose an available color. The first 3 letters should be enough!")
         select_color(color)
       end
     end
@@ -124,7 +124,7 @@ class ColorSelector
 
     def validate_color?(color)
       @@color_bank.any? do |bank_color|
-        color.match?(bank_color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
+        bank_color.match?(color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
       end
     end
 

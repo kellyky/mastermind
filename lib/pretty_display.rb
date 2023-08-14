@@ -8,7 +8,7 @@ class PrettyDisplay
     puts "#{text}#{lines}"
   end
 
-  def self.animated_elipses(seconds=0.05)
+  def self.animated_elipses(seconds=0.0) # .05
     print "."
     sleep(seconds)
     print "."
@@ -16,7 +16,7 @@ class PrettyDisplay
     print "."
   end
 
-  def self.animated_text(text="...", seconds = 0.008)
+  def self.animated_text(text="...", seconds = 0.00) # .08
     text.split("").each do |word|
       print word
       sleep(seconds)
