@@ -61,7 +61,7 @@ class PlayMasterMind
     print_score
     PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
 
-    EndGame.we_have_a_winner if correct == 4
+    EndGame.we_have_a_winner(remaining_guesses) if correct == 4
   end
 
   def print_code

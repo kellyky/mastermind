@@ -3,8 +3,9 @@ require './lib/mastermind'
 require 'pry-byebug'
 
 class EndGame
-  def self.we_have_a_winner
+  def self.we_have_a_winner(attempts_to_spare)
     PrettyDisplay.puts_pause("whoohoo, you win, you codebreaker, you!!!", 2)
+    PrettyDisplay.puts_pause("you got it right in #{12 - attempts_to_spare} attempts. Impressive!", 2)
     self.play_again?
   end
 
