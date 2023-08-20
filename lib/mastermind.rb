@@ -35,7 +35,7 @@ class PlayMasterMind
     if guesses_remaining > 0
       play_turn(guesses_remaining)
     else
-      EndGame.better_luck_next_time(@encoded_colors)
+      EndGame.new(@guesses_remaining, @encoded_colors).better_luck_next_time
     end
   end
 
@@ -61,7 +61,7 @@ class PlayMasterMind
     print_score
     PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
 
-    EndGame.we_have_a_winner(remaining_guesses) if correct == 4
+    EndGame.new(remaining_guesses).we_have_a_winner if correct == 4
   end
 
   def print_code
