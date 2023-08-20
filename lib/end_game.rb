@@ -1,12 +1,10 @@
 require './lib/pretty_display'
 require './lib/mastermind'
 require 'pry-byebug'
-require 'stringio'
 
 
 class EndGame
   def initialize(guesses_remaining=0, colors=[])
-    # binding.pry
     @guesses_remaining = guesses_remaining
     @colors = colors
   end
