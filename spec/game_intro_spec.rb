@@ -1,10 +1,16 @@
 require './lib/game_intro'
 require 'pry-byebug'
 
-
 describe GameIntro do
+  describe '.welcome' do
+    # is this a decent way to test this? I found testing exact output cumbersome, given
+    # the various spacing and newlines
+    let(:expected_output) { described_class.welcome.join }
+    it { expect(expected_output.class).to be(String) }
+  end
 
-  # TODO: are tests even a good idea here?
-  # welcome puts/prints various text, and then calls another class and its method
-  # If we should test this, what should we test?
+  describe '.rules' do
+    let(:expected_output) { described_class.rules.join }
+    it { expect(expected_output.class).to be(String) }
+  end
 end
