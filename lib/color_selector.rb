@@ -124,7 +124,9 @@ class ColorSelector
 
     def validate_color?(color)
       @@color_bank.any? do |bank_color|
-        bank_color.match?(color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
+        if color.length >= 3
+          bank_color.match?(color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
+        end
       end
     end
 
