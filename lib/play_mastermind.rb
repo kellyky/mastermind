@@ -1,8 +1,8 @@
-require './lib/keys'
+require './lib/score'
 require './lib/pretty_display'
 require './lib/game_intro'
 require './lib/end_game'
-require './lib/role'
+require './lib/spy_role'
 require './lib/color_selector'
 require 'pry-byebug'
 
@@ -15,7 +15,7 @@ class PlayMasterMind
   def start_new_game
     GameIntro.welcome
     GameIntro.rules
-    @game_roles = Role.set_codebreaker
+    @game_roles = SpyRole.set_codebreaker
     @color_selector = ColorSelector.new(code_maker, code_breaker)
     @encoded_colors ||= ColorSelector.new(code_maker, code_breaker).get_code
   end
@@ -90,7 +90,7 @@ class PlayMasterMind
   end
 
   def get_rating(correct, wrong)
-    @rating = Keys.new(correct, wrong)
+    @rating = Score.new(correct, wrong)
   end
   
   def remaining_guesses

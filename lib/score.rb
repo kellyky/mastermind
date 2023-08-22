@@ -1,11 +1,11 @@
 require './lib/pretty_display'
-require './lib/mastermind'
+require './lib/play_mastermind'
 require 'pry-byebug'
 
-class Keys
+class Score
   def initialize(correct_place=0, wrong_place=0)
-    @correct_place = correct_place  # right color/right placement
-    @wrong_place = wrong_place  # right color / wrong placement
+    @correct_place = correct_place
+    @wrong_place = wrong_place
   end
 
   def correct_place

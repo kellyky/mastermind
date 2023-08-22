@@ -1,5 +1,5 @@
 require './lib/pretty_display'
-require './lib/mastermind'
+require './lib/play_mastermind'
 require 'pry-byebug'
 
 class ColorSelector

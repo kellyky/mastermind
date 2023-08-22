@@ -1,4 +1,4 @@
-require './lib/mastermind'
+require './lib/play_mastermind'
 require 'pry-byebug'
 
 guesses_remaining = 12

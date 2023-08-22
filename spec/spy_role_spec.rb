@@ -1,7 +1,7 @@
-require './lib/mastermind'
+require './lib/play_mastermind'
 require 'pry-byebug'
 
-describe Role do
+describe SpyRole do
   describe '.determine_roles' do
     # What to test, if anything? It's puts statements, user input, and calling other methods 
   end

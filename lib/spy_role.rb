@@ -1,12 +1,12 @@
-require './lib/mastermind'
+require './lib/play_mastermind'
 require './lib/game_intro'
 require './lib/pretty_display'
 
 require 'pry-byebug'
 
-# TODO rename class, I don't like Role. Maybe CodeBreaker...
+# TODO rename class, I don't like SpyRole. Maybe CodeBreaker...
 # TODO refactor - do we want to keep these all as class methods?
-class Role
+class SpyRole
   def self.set_codebreaker
     PrettyDisplay.puts_pause("Do you want to set the code or break the code?", 2)
     PrettyDisplay.puts_pause("(1 = set the code, 2 = break the code)", 2)

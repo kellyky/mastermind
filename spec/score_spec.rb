@@ -1,7 +1,7 @@
-require './lib/mastermind'
+require './lib/play_mastermind'
 require 'pry-byebug'
 
-describe Keys do
+describe Score do
   subject { described_class.new(3, 1) }
 
   describe '#red' do
