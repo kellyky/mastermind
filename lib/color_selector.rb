@@ -55,12 +55,11 @@ class ColorSelector
     end
 
     def break_code
+      show_color_bank
       select_colors
     end
 
     def select_colors
-      show_color_bank
-
       selected_colors = []
       4.times do
         selected_colors << @@color_bank.shuffle.last
@@ -80,7 +79,6 @@ class ColorSelector
     end
 
     def set_code
-      show_color_bank
       Player.new.select_colors
     end
 
@@ -93,6 +91,7 @@ class ColorSelector
     end
 
     def select_colors
+      show_color_bank
       until @selected_colors.count == 4
         select_color
         @color_counter += 1
