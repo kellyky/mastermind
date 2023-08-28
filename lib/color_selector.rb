@@ -20,7 +20,7 @@ class ColorSelector
     when :computer
       Computer.new(guesses_left).set_code
     when :player
-      Player.new.set_code
+      Player.new(guesses_left).set_code
     end
   end
 
@@ -29,7 +29,7 @@ class ColorSelector
     when :computer
       Computer.new(guesses_left).break_code
     when :player
-      Player.break_code
+      Player.new(guesses_left).break_code
     end
   end
 
@@ -73,21 +73,39 @@ class ColorSelector
   end
 
   class Player < ColorSelector
-    def initialize
+    def initialize(guesses_left)
+      @guesses_left = guesses_left
       @selected_colors = []
       @color_counter = 0
     end
 
     def set_code
-      Player.new.select_colors
+      Player.new(guesses_left).select_colors
     end
 
     def show_color_bank
       super
     end
 
-    def self.break_code
-      Player.new.select_colors
+    def guesses_left
+      @guesses_left
+    end
+
+    def print_guesses_left
+      if guesses_left == 0
+        "This is your last guess. Make it count!"
+      else
+        "You have #{guesses_left} guesses left."
+      end
+    end
+
+    def round
+      12 - guesses_left
+    end
+
+    def break_code
+      PrettyDisplay.puts_pause("*** Round #{round} - #{print_guesses_left}")
+      Player.new(guesses_left).select_colors
     end
 
     def select_colors

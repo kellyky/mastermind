@@ -21,7 +21,6 @@ class SpyRole
   end
 
   def self.evaluate_choice
-    binding.pry
     case @answer
     when "1"
       self.computer_code_breaker

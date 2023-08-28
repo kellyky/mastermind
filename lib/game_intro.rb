@@ -13,7 +13,7 @@ class GameIntro
   def self.rules
     PrettyDisplay.puts_pause(">>>==============================================================<<<", 2)
     PrettyDisplay.puts_pause("\n>>> Gameplay & Scoring:\n\n")
-    PrettyDisplay.animated_text("The code maker creates a code.\n\n")
+    PrettyDisplay.animated_text("The code maker creates a 4-item code.\n\n")
     PrettyDisplay.animated_text("To win the game, the code breaker must guess the code within 12 attempts.\n")
     PrettyDisplay.animated_text("Each attempt is scored to give the code breaker clues.\n\n")
     PrettyDisplay.animated_text("Scoring works like this:\n")
