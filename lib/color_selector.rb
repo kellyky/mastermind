@@ -51,22 +51,7 @@ class ColorSelector
   def show_color_bank
     print "\nColors to choose from: \n>> | "
     color_bank.each do |color|
-      case color
-      when :red
-        print "#{Rainbow(color).red}"  + " | "
-      when :orange
-        print "#{Rainbow(color).orangered}"  + " | "
-      when :yellow
-        print "#{Rainbow(color).gold}"  + " | "
-      when :green
-        print "#{Rainbow(color).green}"  + " | "
-      when :blue
-        print "#{Rainbow(color).cyan}"  + " | "
-      when :indigo
-        print "#{Rainbow(color).indigo}"  + " | "
-      when :violet
-        print "#{Rainbow(color).webpurple}"  + " | "
-      end
+      PrettyDisplay.color_text(color)
     end
     print " <<\n\n\n"
   end

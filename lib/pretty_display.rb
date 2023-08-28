@@ -1,4 +1,4 @@
-require 'colorize'
+require 'rainbow'
 require 'pry-byebug'
 
 class PrettyDisplay
@@ -21,6 +21,25 @@ class PrettyDisplay
     text.split("").each do |word|
       print word
       sleep(seconds)
+    end
+  end
+
+  def self.color_text(color)
+    case color
+    when :red
+      print "#{Rainbow(color).red}" + " | "
+    when :orange
+      print "#{Rainbow(color).orangered}" + " | "
+    when :yellow
+      print "#{Rainbow(color).gold}" + " | "
+    when :green
+      print "#{Rainbow(color).green}" + " | "
+    when :blue
+      print "#{Rainbow(color).cyan}" + " | "
+    when :indigo
+      print "#{Rainbow(color).indigo}" + " | "
+    when :violet
+      print "#{Rainbow(color).webpurple}" + " | "
     end
   end
 end
