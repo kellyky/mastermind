@@ -4,6 +4,7 @@ require './lib/game_intro'
 require './lib/end_game'
 require './lib/spy_role'
 require './lib/color_selector'
+require './lib/difficulty'
 require 'pry-byebug'
 
 class PlayMasterMind
@@ -16,8 +17,21 @@ class PlayMasterMind
     GameIntro.welcome
     GameIntro.rules
     @game_roles = SpyRole.set_codebreaker
-    @color_selector = ColorSelector.new(code_maker, code_breaker)
-    @encoded_colors ||= ColorSelector.new(code_maker, code_breaker).get_code
+    # binding.pry
+    if @game_roles[:code_breaker] == :player
+      set_game_difficulty 
+      update_color_selection_for_easy_mode
+    end
+    @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, remaining_guesses)
+    @encoded_colors ||= ColorSelector.new(code_maker, code_breaker, @difficulty).get_code
+  end
+
+  def set_game_difficulty
+    @difficulty = Difficulty.new.set_mode
+  end
+
+  def update_color_selection_for_easy_mode
+    ColorSelector.new(code_maker, code_breaker, @difficulty)
   end
 
   def code_maker

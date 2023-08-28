@@ -4,15 +4,37 @@ require 'pry-byebug'
 
 class ColorSelector
   
-  def initialize(code_maker, code_breaker, guesses_left=12)
+  def initialize(code_maker, code_breaker, difficulty=:standard, guesses_left=12)
+    @@difficulty = difficulty
     @guesses_left = guesses_left
     @@code_maker = code_maker
     @@code_breaker = code_breaker
     @@color_bank = [:red, :orange, :yellow, :green, :blue, :indigo, :violet]
   end
 
+
+
+  def color_bank
+    if @@difficulty == :easy
+      @@color_bank.slice(0..4)
+    else
+      @@color_bank
+    end
+    # case @@difficulty
+    # when :easy
+    #   @@color_bank = @@color_bank.shuffle.slice(0..4)
+    # else
+    #   @@color_bank
+    # end
+
+  end
+
   def guesses_left
     @guesses_left
+  end
+
+  def difficulty
+    difficulty
   end
 
   def get_code
@@ -35,7 +57,7 @@ class ColorSelector
 
   def show_color_bank
     print "\nColors to choose from: \n>> | "
-    @@color_bank.each do |color|
+    color_bank.each do |color|
       print "#{color.to_s} | "
     end
     print " <<\n\n\n"
@@ -47,6 +69,10 @@ class ColorSelector
     end
 
     def guesses_left
+      super
+    end
+
+    def color_bank
       super
     end
 
@@ -62,7 +88,7 @@ class ColorSelector
     def select_colors
       selected_colors = []
       4.times do
-        selected_colors << @@color_bank.shuffle.last
+        selected_colors << color_bank.shuffle.last
       end
       selected_colors
     end
@@ -81,6 +107,10 @@ class ColorSelector
 
     def set_code
       Player.new(guesses_left).select_colors
+    end
+
+    def color_bank
+      super
     end
 
     def show_color_bank
@@ -132,7 +162,7 @@ class ColorSelector
 
 
     def get_full_color_name(color)
-      @@color_bank.each do |bank_color|
+      color_bank.each do |bank_color|
         if bank_color.match?(color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
           return bank_color
         end
@@ -140,7 +170,7 @@ class ColorSelector
     end
 
     def validate_color?(color)
-      @@color_bank.any? do |bank_color|
+      color_bank.any? do |bank_color|
         if color.length >= 3
           bank_color.match?(color.slice(0..2)) || bank_color.to_s.chars.sort == color.to_s.chars.sort
         end
