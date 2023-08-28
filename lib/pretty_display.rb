@@ -1,3 +1,4 @@
+require 'colorize'
 require 'pry-byebug'
 
 class PrettyDisplay

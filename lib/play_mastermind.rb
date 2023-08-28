@@ -5,6 +5,7 @@ require './lib/end_game'
 require './lib/spy_role'
 require './lib/color_selector'
 require './lib/difficulty'
+require 'rainbow'
 require 'pry-byebug'
 
 class PlayMasterMind
@@ -81,7 +82,22 @@ class PlayMasterMind
   def print_code
     print ">>>>>>> You guessed: >> | "
     @guessed_code.each do |color|
-      print "#{color.to_s} | "
+      case color
+      when :red
+        print "#{Rainbow(color).red}"  + " | "
+      when :orange
+        print "#{Rainbow(color).orangered}"  + " | "
+      when :yellow
+        print "#{Rainbow(color).gold}"  + " | "
+      when :green
+        print "#{Rainbow(color).green}"  + " | "
+      when :blue
+        print "#{Rainbow(color).cyan}"  + " | "
+      when :indigo
+        print "#{Rainbow(color).indigo}"  + " | "
+      when :violet
+        print "#{Rainbow(color).webpurple}"  + " | "
+      end
     end
     print " <<\n"
   end
