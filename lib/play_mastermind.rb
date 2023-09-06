@@ -12,27 +12,29 @@ class PlayMasterMind
   def initialize(guesses_allowed)
     @guesses_allowed = guesses_allowed
     @remaining_guesses = guesses_allowed
+    @code_length = 4
   end
 
   def start_new_game
     GameIntro.welcome
     GameIntro.rules
     @game_roles = SpyRole.set_codebreaker
-    # binding.pry
-    if @game_roles[:code_breaker] == :player
-      set_game_difficulty 
-      update_color_selection_for_easy_mode
-    end
-    @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, remaining_guesses)
-    @encoded_colors ||= ColorSelector.new(code_maker, code_breaker, @difficulty).get_code
+    set_game_difficulty if @game_roles[:code_breaker] == :player
+    update_code_length if @difficulty == :kid
+    @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, @code_length, remaining_guesses)
+    set_encoded_colors
+  end
+
+  def update_code_length
+    @code_length = 2
+  end
+
+  def set_encoded_colors
+    @encoded_colors ||= @color_selector.get_code
   end
 
   def set_game_difficulty
     @difficulty = Difficulty.new.set_mode
-  end
-
-  def update_color_selection_for_easy_mode
-    ColorSelector.new(code_maker, code_breaker, @difficulty)
   end
 
   def code_maker
@@ -63,7 +65,7 @@ class PlayMasterMind
 
   def evaluate_guess
     correct, wrong = [0, 0]
-    for place in (0...4)
+    for place in (0...@code_length)
       if merits_correct_peg?(place)
         correct += 1
       elsif merits_wrong_peg?(place)
@@ -76,7 +78,7 @@ class PlayMasterMind
     print_score
     PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
 
-    EndGame.new(remaining_guesses).we_have_a_winner if correct == 4
+    EndGame.new(remaining_guesses).we_have_a_winner if correct == @code_length
   end
 
   def print_code

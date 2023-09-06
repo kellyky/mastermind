@@ -17,7 +17,7 @@ class PrettyDisplay
     print "."
   end
 
-  def self.animated_text(text="...", seconds = 0.00) # .08
+  def self.animated_text(text="...", seconds = 0.0) # .08
     text.split("").each do |word|
       print word
       sleep(seconds)
@@ -40,6 +40,16 @@ class PrettyDisplay
       print "#{Rainbow(color).indigo}" + " | "
     when :violet
       print "#{Rainbow(color).webpurple}" + " | "
+    end
+  end
+
+  # TODO: pretty up the color for black/white scoring - maybe!
+  def self.color_score(color)
+    case color
+    when :black
+
+    when :white
+
     end
   end
 end

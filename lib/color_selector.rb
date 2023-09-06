@@ -1,13 +1,13 @@
 require './lib/pretty_display'
 require './lib/play_mastermind'
-# require 'colorize'
 require 'rainbow'
 require 'pry-byebug'
 
 class ColorSelector
   
-  def initialize(code_maker, code_breaker, difficulty=:standard, guesses_left=12)
+  def initialize(code_maker, code_breaker, difficulty=:standard, code_length=4, guesses_left=12)
     @@difficulty = difficulty
+    @@code_length = code_length
     @guesses_left = guesses_left
     @@code_maker = code_maker
     @@code_breaker = code_breaker
@@ -15,8 +15,11 @@ class ColorSelector
   end
 
   def color_bank
-    if @@difficulty == :easy
-      @@color_bank.slice(0..4)
+    case @@difficulty
+    when :beginner
+      @@color_bank.first(4)
+    when :easy
+      @@color_bank.first(5)
     else
       @@color_bank
     end
@@ -24,6 +27,10 @@ class ColorSelector
 
   def guesses_left
     @guesses_left
+  end
+
+  def code_length
+    @@code_length
   end
 
   def difficulty
@@ -69,6 +76,10 @@ class ColorSelector
       super
     end
 
+    def code_length
+      super
+    end
+
     def set_code
       select_colors
     end
@@ -80,7 +91,7 @@ class ColorSelector
 
     def select_colors
       selected_colors = []
-      4.times do
+      code_length.times do
         selected_colors << color_bank.shuffle.last
       end
       selected_colors
@@ -103,6 +114,10 @@ class ColorSelector
     end
 
     def color_bank
+      super
+    end
+
+    def code_length
       super
     end
 
@@ -133,7 +148,7 @@ class ColorSelector
 
     def select_colors
       show_color_bank
-      until @selected_colors.count == 4
+      until @selected_colors.count == code_length
         select_color
         @color_counter += 1
       end
