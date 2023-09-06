@@ -9,10 +9,11 @@ require 'rainbow'
 require 'pry-byebug'
 
 class PlayMasterMind
-  def initialize(guesses_allowed)
+  def initialize(guesses_allowed=12, guesses_remaining=12)
     @guesses_allowed = guesses_allowed
-    @remaining_guesses = guesses_allowed
+    @remaining_guesses = guesses_remaining
     @code_length = 4
+    # @game_roles = game_roles
   end
 
   def start_new_game
@@ -20,9 +21,10 @@ class PlayMasterMind
     GameIntro.rules
     @game_roles = SpyRole.set_codebreaker
     set_game_difficulty if @game_roles[:code_breaker] == :player
-    update_code_length if @difficulty == :kid
+    update_code_length if @difficulty == :beginner
     @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, @code_length, remaining_guesses)
     set_encoded_colors
+
   end
 
   def update_code_length
@@ -45,22 +47,26 @@ class PlayMasterMind
     @game_roles[:code_breaker]
   end
 
-  def play_game(guesses_remaining)
-    if guesses_remaining == @guesses_allowed
+  def remaining_guesses
+    @remaining_guesses
+  end
+
+  def play_game
+    if @remaining_guesses == @guesses_allowed
       start_new_game
     end
-    if guesses_remaining > 0
-      play_turn(guesses_remaining)
+    if @remaining_guesses > 0
+      play_turn(@remaining_guesses)
     else
-      EndGame.new(@guesses_remaining, @encoded_colors).better_luck_next_time
+      EndGame.new(@remaining_guesses, @encoded_colors).better_luck_next_time
     end
   end
 
-  def play_turn(guesses_remaining)
+  def play_turn(remaining_guesses)
     @remaining_guesses -= 1
     guess_code
     evaluate_guess
-    play_game(@remaining_guesses)
+    play_game
   end
 
   def evaluate_guess

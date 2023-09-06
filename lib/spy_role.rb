@@ -7,17 +7,13 @@ require 'pry-byebug'
 class SpyRole
   def self.set_codebreaker
     self.print_spy_role_message
-    self.answer
+    @answer = gets.chomp
     self.evaluate_choice
   end
 
   def self.print_spy_role_message
     PrettyDisplay.puts_pause("Do you want to set the code or break the code?", 2)
     PrettyDisplay.puts_pause("(1 = set the code, 2 = break the code)", 2)
-  end
-
-  def self.answer
-    @answer ||= gets.chomp
   end
 
   def self.evaluate_choice

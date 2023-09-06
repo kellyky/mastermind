@@ -43,8 +43,7 @@ class Difficulty
   end
 
   def easy_mode
-    PrettyDisplay.puts_pause("\nEasy mode it is! Instead of 7 possible colors to choose from, there are only 5.", 2)
-    PrettyDisplay.puts_pause("You've got this!!", 3)
+    PrettyDisplay.puts_pause("\nEasy mode it is. You've got this!!", 3)
     @mode = :easy
   end
 

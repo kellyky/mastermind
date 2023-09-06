@@ -37,8 +37,8 @@ class EndGame
     print_play_again_message
     case answer
     when "1"
-      new_game = PlayMasterMind.new(12)
-      new_game.play_game(12)
+      new_game = PlayMasterMind.new
+      new_game.play_game
     when "2"
       PrettyDisplay.puts_pause("\nok, another time then!")
       exit
