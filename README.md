@@ -8,6 +8,9 @@ Pegs are awarded in no particular order, so you'll need to figure out which colo
 
 For a more thorough description of gameplay and roles, check out this wikihow article [here](https://www.wikihow.com/Play-Mastermind)
 
+## Status
+Still adding features and making updates (noted below) but the game you find here is playable. :D
+
 ## Installation
 1. Clone our download the contents of this repo
 2. Navigate to this directory
