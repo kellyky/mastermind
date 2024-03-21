@@ -4,11 +4,11 @@ require 'pry-byebug'
 describe Score do
   subject { described_class.new(3, 1) }
 
-  describe '#red' do
-    it { expect(subject.red).to be(3) }
+  describe '#correct_place' do
+    it { expect(subject.correct_place).to be(3) }
   end
 
-  describe '#white' do
-    it { expect(subject.white).to be(1) }
+  describe '#wrong_place' do
+    it { expect(subject.wrong_place).to be(1) }
   end
 end
