@@ -5,47 +5,42 @@ require './lib/pretty_display'
 require 'pry-byebug'
 
 class SpyRole
-  def self.set_codebreaker
-    self.print_spy_role_message
-    @answer = gets.chomp
-    self.evaluate_choice
+  attr_reader :code_breaker, :code_maker
+  def initialize
+    @code_breaker = :player
+    @code_maker = :computer
   end
 
-  def self.print_spy_role_message
-    PrettyDisplay.puts_pause("Do you want to set the code or break the code?", 2)
-    PrettyDisplay.puts_pause("(1 = set the code, 2 = break the code)", 2)
-  end
+  def assign_roles
+    begin
+      player_choice = player_answer
 
-  def self.evaluate_choice
-    case @answer
-    when "1"
-      self.computer_code_breaker
-    when "2"
-      self.player_code_breaker
-    when "3"
-      self.test_mode
-    else
-      PrettyDisplay.puts_pause("\nHm, I don't have a game mode for that. Let's try that again.")
-      self.set_codebreaker
+      case player_choice
+      when '1' then computer_code_breaker
+      when '2' then player_code_breaker
+      else
+        raise "\n\n#{player_choice} is not one of the choices. Please enter either '1' to set the code or '2' to break the code."
+      end
+    rescue StandardError => e
+      puts e.message
+      retry
     end
+
     { code_maker: @code_maker, code_breaker: @code_breaker }
   end
 
-  def self.computer_code_breaker
+  def player_answer
+    # abstracted out to make it easier to write the test coverage
+    gets.chomp
+  end
+
+  def computer_code_breaker
     PrettyDisplay.animated_text("\ncode maker it is! First, you'll be prompted to create a 4-item code, 1 color at a time. \nThen, the computer will try to break it.\n\n")
     @code_maker = :player
     @code_breaker = :computer
   end
 
-  def self.player_code_breaker
+  def player_code_breaker
     PrettyDisplay.puts_pause("\ncode breaker it is! The computer has created a 4-'place' code. \nYOUR goal is to crack a 4-color code set by the computer.", 2)
-    @code_maker = :computer
-    @code_breaker = :player
-  end
-
-  def self.test_mode
-    PrettyDisplay.puts_pause("\ntest mode it is! The computer plays both parts\n")
-    @code_maker = :computer
-    @code_breaker = :computer
   end
 end

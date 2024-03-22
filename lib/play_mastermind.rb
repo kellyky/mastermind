@@ -12,19 +12,24 @@ class PlayMasterMind
   def initialize(guesses_allowed=12, guesses_remaining=12)
     @guesses_allowed = guesses_allowed
     @remaining_guesses = guesses_remaining
-    @code_length = 4
-    # @game_roles = game_roles
+
+    @spy_roles = SpyRole.new
   end
 
   def start_new_game
     GameIntro.welcome
     GameIntro.rules
-    @game_roles = SpyRole.set_codebreaker
-    set_game_difficulty if @game_roles[:code_breaker] == :player
-    update_code_length if @difficulty == :beginner
-    @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, @code_length, remaining_guesses)
-    set_encoded_colors
 
+    PrettyDisplay.puts_pause("Do you want to set the code or break the code?", 2)
+    PrettyDisplay.puts_pause("(1 = set the code, 2 = break the code)", 2)
+    @spy_roles.assign_roles
+
+    set_game_difficulty if code_breaker == :player
+    update_code_length if @difficulty == :beginner
+
+    @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, @code_length, remaining_guesses)
+
+    set_encoded_colors
   end
 
   def update_code_length
@@ -40,11 +45,11 @@ class PlayMasterMind
   end
 
   def code_maker
-    @game_roles[:code_maker]
+    @spy_roles.code_maker
   end
 
   def code_breaker
-    @game_roles[:code_breaker]
+    @spy_roles.code_breaker
   end
 
   def remaining_guesses
@@ -115,7 +120,7 @@ class PlayMasterMind
   def get_rating(correct, wrong)
     @rating = Score.new(correct, wrong)
   end
-  
+
   def remaining_guesses
     @remaining_guesses
   end
