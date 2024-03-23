@@ -1,4 +1,3 @@
-require './lib/score'
 require './lib/pretty_display'
 require './lib/game_intro'
 require './lib/end_game'
@@ -84,7 +83,7 @@ class PlayMasterMind
       end
     end
 
-    get_rating(correct, wrong)
+    score_turn(correct, wrong)
     print_code
     print_score
     PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
@@ -101,8 +100,8 @@ class PlayMasterMind
   end
 
   def print_score
-    PrettyDisplay.puts_pause("\n >> Black: #{score[:right_placement]} - i.e. #{score[:right_placement]} space(s) have the RIGHT color in its space")
-    PrettyDisplay.puts_pause(" >> White: #{score[:wrong_placement]} - i.e. #{score[:wrong_placement]} space(s) have the WRONG color - BUT the color does belong somewhere else in the code")
+    PrettyDisplay.puts_pause("\n >> Black: #{@score[:right_placement]} - i.e. #{@score[:right_placement]} space(s) have the RIGHT color in its space")
+    PrettyDisplay.puts_pause(" >> White: #{@score[:wrong_placement]} - i.e. #{@score[:wrong_placement]} space(s) have the WRONG color - BUT the color does belong somewhere else in the code")
   end
 
   def merits_correct_peg?(place)
@@ -113,12 +112,8 @@ class PlayMasterMind
     @encoded_colors.any?(@guessed_code[place])
   end
 
-  def score
-    @score = { right_placement: "#{@rating.correct_place}", wrong_placement: "#{@rating.wrong_place}" }
-  end
-
-  def get_rating(correct, wrong)
-    @rating = Score.new(correct, wrong)
+  def score_turn(correct, wrong)
+    @score = { right_placement: "#{correct}", wrong_placement: "#{wrong}" }
   end
 
   def remaining_guesses
