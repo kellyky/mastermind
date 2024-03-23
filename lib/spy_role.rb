@@ -6,6 +6,12 @@ require 'pry-byebug'
 
 class SpyRole
   attr_reader :code_breaker, :code_maker
+
+  ROLES = {
+    '1' => :computer,
+    '2' => :player
+  }
+
   def initialize
     @code_breaker = :player
     @code_maker = :computer
@@ -13,16 +19,9 @@ class SpyRole
 
   def assign_roles
     begin
-      player_choice = player_answer
-
-      case player_choice
-      when '1' then computer_code_breaker
-      when '2' then player_code_breaker
-      else
-        raise "\n\n#{player_choice} is not one of the choices. Please enter either '1' to set the code or '2' to break the code."
-      end
-    rescue StandardError => e
-      puts e.message
+      self.send("#{ROLES[player_answer]}_code_breaker")
+    rescue NoMethodError => e
+      PrettyDisplay.puts_pause("\nHm, I don't know that one. Please choose '1' to set the code or '2' to break the code.", 2)
       retry
     end
 
@@ -30,7 +29,6 @@ class SpyRole
   end
 
   def player_answer
-    # abstracted out to make it easier to write the test coverage
     gets.chomp
   end
 

@@ -24,24 +24,24 @@ class PlayMasterMind
     PrettyDisplay.puts_pause("(1 = set the code, 2 = break the code)", 2)
     @spy_roles.assign_roles
 
-    set_game_difficulty if code_breaker == :player
+    update_difficulty if code_breaker == :player
     update_code_length if @difficulty == :beginner
 
     @color_selector = ColorSelector.new(code_maker, code_breaker, @difficulty, @code_length, remaining_guesses)
 
-    set_encoded_colors
+    encode_colors
   end
 
   def update_code_length
     @code_length = 2
   end
 
-  def set_encoded_colors
+  def encode_colors
     @encoded_colors ||= @color_selector.get_code
   end
 
-  def set_game_difficulty
-    @difficulty = Difficulty.new.set_mode
+  def update_difficulty
+    @difficulty = Difficulty.assign
   end
 
   def code_maker
@@ -129,3 +129,4 @@ class PlayMasterMind
     @guessed_code = @color_selector.break_code(@remaining_guesses)
   end
 end
+
