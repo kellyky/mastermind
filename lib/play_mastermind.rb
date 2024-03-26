@@ -78,12 +78,16 @@ class PlayMasterMind
 
   def evaluate_guess
     correct = 0
-    wrong = 0
+    partly_correct = 0
     (0...@code_length).to_a.each do |place|
-      merits_correct_peg?(place) ? correct += 1 : wrong += 1
+      if fully_correct_guess?(place)
+        correct += 1
+      elsif partly_correct_guess?(place)
+        partly_correct += 1
+      end
     end
 
-    score_turn(correct, wrong)
+    score_turn(correct, partly_correct)
     print_code
     print_score
     PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
@@ -100,21 +104,23 @@ class PlayMasterMind
   end
 
   def print_score
-    PrettyDisplay.puts_pause("\n >> Black: #{@score[:right_placement]} | space(s) with the RIGHT color")
-    PrettyDisplay.puts_pause(" >> White: #{@score[:wrong_placement]} | space(s) with wrong color / but you do need this color")
-    # PrettyDisplay.puts_pause("| space(s) have the WRONG color - BUT the color is in the code")
+    PrettyDisplay.puts_pause("\n >> Black: #{@score[:fully_correct_placement]} | space(s) with the RIGHT color")
+    PrettyDisplay.puts_pause(" >> White: #{@score[:partly_correct_placement]} | space(s) with partly_correct color / but you do need this color")
   end
 
-  def merits_correct_peg?(place)
+  def fully_correct_guess?(place)
     @guessed_code[place] == @encode_colors[place]
   end
 
-  def merits_wrong_peg?(place)
+  def partly_correct_guess?(place)
     @encode_colors.any?(@guessed_code[place])
   end
 
-  def score_turn(correct, wrong)
-    @score = { right_placement: correct.to_s, wrong_placement: wrong.to_s }
+  def score_turn(correct, partly_correct)
+    @score = {
+      fully_correct_placement: correct.to_s,
+      partly_correct_placement: partly_correct.to_s
+    }
   end
 
   def guess_code
