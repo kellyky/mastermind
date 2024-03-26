@@ -6,6 +6,11 @@ require 'pry-byebug'
 
 # End game scripts for win/loss and logic to play again
 class EndGame
+  GAME_CHOICE = {
+    '1' => :play_again,
+    '2' => :exit_game
+  }.freeze
+
   def self.declare_winner(guesses)
     new(guesses).we_have_a_winner
   end
@@ -46,12 +51,9 @@ class EndGame
   end
 
   def play_again?
-    case answer
-    when '1'
-      PlayMasterMind.play_new_game
-    when '2'
-      PrettyDisplay.puts_pause("\nok, another time then!")
-    else
+    begin
+      send("#{GAME_CHOICE[answer]}")
+    rescue StandardError
       PrettyDisplay.animated_elipses
       PrettyDisplay.puts_pause("Hm... I don't know that one. Choose '1' to play again or '2' to exit.")
       play_again?
@@ -59,7 +61,20 @@ class EndGame
   end
 
   def print_play_again_message
-    PrettyDisplay.puts_pause('Would you like to play again? (1 = yes, 2 = no)')
+    PrettyDisplay.puts_pause('Would you like to play again? (1 = yes, 2 = no)', 2)
+  end
+
+  def play_again
+    PrettyDisplay.puts_pause("\nSweet! Queueing up a new game...", 2)
+    PrettyDisplay.puts_pause("\nYou already know how to play, so we'll get to it!", 2)
+    PrettyDisplay.puts_pause('Do you want to set the code or break the code?', 2)
+    PrettyDisplay.puts_pause('(1 = set the code, 2 = break the code)', 2)
+    PlayMasterMind.new.begin_new_game
+  end
+
+  def exit_game
+    PrettyDisplay.puts_pause("\nok, another time then!")
+    exit
   end
 
   def answer
