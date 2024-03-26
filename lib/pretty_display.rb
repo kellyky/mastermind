@@ -1,24 +1,27 @@
+# frozen_string_literal: true
+
 require 'rainbow'
 require 'pry-byebug'
 
+# Methods to add color to text, to animate text, etc.
 class PrettyDisplay
-  def self.puts_pause(text="\n", newlines=1, seconds=0.1)
+  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.0)
     sleep(seconds.to_i)
-    lines = "" 
+    lines = ''
     newlines.times { lines += "\n" }
     puts "#{text}#{lines}"
   end
 
-  def self.animated_elipses(seconds=0.0) # .05
-    print "."
+  def self.animated_elipses(seconds = 0.00)
+    print '.'
     sleep(seconds)
-    print "."
+    print '.'
     sleep(seconds)
-    print "."
+    print '.'
   end
 
-  def self.animated_text(text="...", seconds = 0.0) # .08
-    text.split("").each do |word|
+  def self.animated_text(text = '...', seconds = 0.00)
+    text.split('').each do |word|
       print word
       sleep(seconds)
     end
@@ -26,30 +29,13 @@ class PrettyDisplay
 
   def self.color_text(color)
     case color
-    when :red
-      print "#{Rainbow(color).red}" + " | "
-    when :orange
-      print "#{Rainbow(color).orangered}" + " | "
-    when :yellow
-      print "#{Rainbow(color).gold}" + " | "
-    when :green
-      print "#{Rainbow(color).green}" + " | "
-    when :blue
-      print "#{Rainbow(color).cyan}" + " | "
-    when :indigo
-      print "#{Rainbow(color).indigo}" + " | "
-    when :violet
-      print "#{Rainbow(color).webpurple}" + " | "
-    end
-  end
-
-  # TODO: pretty up the color for black/white scoring - maybe!
-  def self.color_score(color)
-    case color
-    when :black
-
-    when :white
-
+    when :red then print "#{Rainbow(color).red} | "
+    when :orange then print "#{Rainbow(color).orangered} | "
+    when :yellow then print "#{Rainbow(color).gold} | "
+    when :green then print "#{Rainbow(color).green} | "
+    when :blue then print "#{Rainbow(color).cyan} | "
+    when :indigo then print "#{Rainbow(color).indigo} | "
+    when :violet then print "#{Rainbow(color).webpurple} | "
     end
   end
 end

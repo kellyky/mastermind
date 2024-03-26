@@ -20,8 +20,8 @@ class PlayMasterMind
     new.begin_new_game
   end
 
-  def initialize(guesses_allowed = 1, guesses_remaining = 1)
-  # def initialize(guesses_allowed = 12, guesses_remaining = 12)
+  # def initialize(guesses_allowed = 12, guesses_remaining = 1)
+  def initialize(guesses_allowed = 12, guesses_remaining = 12)
     @guesses_allowed = guesses_allowed
     @remaining_guesses = guesses_remaining
     @code_length = 4
@@ -46,7 +46,7 @@ class PlayMasterMind
   end
 
   def encode_colors
-    @encode_colors ||= @color_selector.get_code
+    @encode_colors ||= @color_selector.encode_colors
   end
 
   def update_difficulty

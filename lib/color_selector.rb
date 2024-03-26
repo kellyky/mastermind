@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require './lib/pretty_display'
 require './lib/play_mastermind'
 require 'rainbow'
 require 'pry-byebug'
 
+# Logic for encoding / decoding color
 class ColorSelector
   
   def initialize(code_maker, code_breaker, difficulty=:standard, code_length=4, guesses_left=12)
@@ -92,16 +95,13 @@ class ColorSelector
     def select_colors
       selected_colors = []
       code_length.times do
-        selected_colors << color_bank.shuffle.last
+        selected_colors << color_bank.sample
       end
       selected_colors
     end
-
-    def show_color_bank
-      super
-    end
   end
 
+  # Logic to support player encoding colors & validating player guesses
   class Player < ColorSelector
     def initialize(guesses_left)
       @guesses_left = guesses_left
@@ -130,8 +130,8 @@ class ColorSelector
     end
 
     def print_guesses_left
-      if guesses_left == 0
-        "This is your last guess. Make it count!"
+      if guesses_left.zero?
+        'This is your last guess. Make it count!'
       else
         "You have #{guesses_left} guesses left."
       end
@@ -155,19 +155,18 @@ class ColorSelector
       @selected_colors
     end
 
-    def select_color(color = "")
+    def select_color(color = '')
       tell_user_to_select_color
       color = gets.chomp
-      puts ""
+      puts ''
       formatted_color = format_color(color)
       if validate_color?(formatted_color)
         @selected_colors << get_full_color_name(formatted_color)
       else
-        PrettyDisplay.puts_pause("Hm, I don't know that one. Please choose an available color. The first 3 letters should be enough!")
+        PrettyDisplay.puts_pause("Hm, I don't know that one. Please choose an available color.")
         select_color(color)
       end
     end
-
 
     def get_full_color_name(color)
       color_bank.each do |bank_color|
