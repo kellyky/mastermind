@@ -62,7 +62,7 @@ class PlayMasterMind
   end
 
   def play_game
-    if @remaining_guesses.positive?
+    if @remaining_guesses > 0
       play_turn
     else
       EndGame.declare_loser(@remaining_guesses, @encode_colors)

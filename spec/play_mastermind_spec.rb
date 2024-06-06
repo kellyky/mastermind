@@ -4,17 +4,24 @@ require 'pry-byebug'
 describe PlayMasterMind do
   describe '#play_game' do
     subject { described_class.new }
-    context 'when fewer than 12 turns have been played' do
+
+    context 'when the player is NOT out of guesses' do
       it 'should call play_turn' do
-        expect(subject.play_turn(11)).to receive(:play_game)
-        expect(subject.play_turn(13)).to receive(:play_game)
+        subject.instance_variable_set(:@remaining_guesses, 10)
+        expect(subject).to receive(:play_turn)
+        subject.play_game
       end
     end
 
-    context 'when 12 turns have been played' do
-      it 'should call the end game -- better luck next time' do
-        turns_left = 12
+    context 'when the player is out of guesses' do
+      let(:remaining_guesses) { 0 }
+      let(:encode_colors) { %i[red red red blue] }
 
+      it 'should call EndGame.declare_loser' do
+        subject.instance_variable_set(:@remaining_guesses, remaining_guesses)
+        subject.instance_variable_set(:@encode_colors, encode_colors)
+        expect(EndGame).to receive(:declare_loser).with(remaining_guesses, encode_colors)
+        subject.play_game
       end
     end
   end

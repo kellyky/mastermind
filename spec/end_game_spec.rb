@@ -33,14 +33,14 @@ describe EndGame do
   end
 
   describe '#play_again?' do
-    # what to test here... 
+    # what to test here...
     #=> if 1 - that new object is creatd and play_game called
     #=> if 2 - that message is displayed; that program exits
     #=> if other - that message is displayed; that program exits
   end
 
   describe '#print_play_again_message' do
-    let(:message) { "Would you like to play again? (1 = yes, 2 = no)\n" }
+    let(:message) { "Would you like to play again? (1 = yes, 2 = no)\n\n" }
     it { expect { subject.print_play_again_message }.to output(message).to_stdout }
   end
 
