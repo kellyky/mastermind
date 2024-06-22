@@ -67,7 +67,6 @@ class ColorSelector
   end
 
   def computer_select_colors
-    # show_color_bank
     selected_colors = []
     code_length.times { selected_colors << color_bank.sample }
     selected_colors
