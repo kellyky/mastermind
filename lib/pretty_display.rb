@@ -5,14 +5,14 @@ require 'rainbow'
 
 # Methods to add color to text, to animate text, etc.
 class PrettyDisplay
-  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.00)  # update seconds to 0.02 for animation
+  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.00) # update seconds to 0.02 for animation
     sleep(seconds.to_i)
     lines = ''
     newlines.times { lines += "\n" }
     puts "#{text}#{lines}"
   end
 
-  def self.animated_elipses(seconds = 0.00  )# update seconds to 0.02 for animation
+  def self.animated_elipses(seconds = 0.00) # update seconds to 0.02 for animation
     print '.'
     sleep(seconds)
     print '.'
@@ -20,7 +20,7 @@ class PrettyDisplay
     print '.'
   end
 
-  def self.animated_text(text = '...', seconds = 0.00)  # update seconds to 0.02 for animation
+  def self.animated_text(text = '...', seconds = 0.00) # update seconds to 0.02 for animation
     text.split('').each do |word|
       print word
       sleep(seconds)

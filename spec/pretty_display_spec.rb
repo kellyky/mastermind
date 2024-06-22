@@ -45,13 +45,13 @@ describe PrettyDisplay do
   describe '.animated_elipses' do
     context 'when no time pause is specified' do
       subject { described_class.animated_elipses }
-      it { expect { subject }.to output("...").to_stdout }
+      it { expect { subject }.to output('...').to_stdout }
     end
 
     context 'when a time pause *is* specified' do
       subject { described_class.animated_elipses(seconds) }
 
-      it { expect { subject }.to output("...").to_stdout }
+      it { expect { subject }.to output('...').to_stdout }
     end
   end
 
@@ -59,7 +59,7 @@ describe PrettyDisplay do
     subject { described_class.animated_text }
 
     context 'when no text is passed' do
-      it { expect { subject }.to output("...").to_stdout }
+      it { expect { subject }.to output('...').to_stdout }
     end
 
     context 'when text is passed' do

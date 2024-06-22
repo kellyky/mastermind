@@ -19,7 +19,7 @@ describe SpyRole do
       it 'calls computer_code_breaker' do
         expect(subject).to receive(:computer_code_breaker)
         subject.assign_roles
-       end
+      end
     end
 
     context 'when "2" is selected' do
@@ -31,7 +31,7 @@ describe SpyRole do
       end
     end
 
-    # FIXME - not sure how to test the error & rescue withuot endless loop
+    # FIXME: - not sure how to test the error & rescue withuot endless loop
     context 'when anything else is selected' do
       # it 'raises StandardError and retries' do
       #   allow(subject).to receive(:player_answer).and_return('5')

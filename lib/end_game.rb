@@ -52,13 +52,11 @@ class EndGame
   end
 
   def play_again?
-    begin
-      send("#{GAME_CHOICE[answer]}")
-    rescue StandardError
-      PrettyDisplay.animated_elipses
-      PrettyDisplay.puts_pause("Hm... I don't know that one. Choose '1' to play again or '2' to exit.")
-      play_again?
-    end
+    send("#{GAME_CHOICE[answer]}")
+  rescue StandardError
+    PrettyDisplay.animated_elipses
+    PrettyDisplay.puts_pause("Hm... I don't know that one. Choose '1' to play again or '2' to exit.")
+    play_again?
   end
 
   def print_play_again_message

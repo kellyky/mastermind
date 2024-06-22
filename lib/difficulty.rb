@@ -12,15 +12,15 @@ class Difficulty
   }
 
   def self.assign
-    self.print_difficulty_message
+    print_difficulty_message
     new.set_mode
   end
 
   def self.print_difficulty_message
-    PrettyDisplay.puts_pause("Would you like to play standard difficulty or a slightly easier version of the game?", 2)
-    PrettyDisplay.puts_pause("1 = standard mode: break a 4-color code with 7 possible colors")
-    PrettyDisplay.puts_pause("2 = easy mode: break a 4-color code with 5 possible colors")
-    PrettyDisplay.puts_pause("3 = beginner mode: break a 2-color code with 4 possible colors", 2)
+    PrettyDisplay.puts_pause('Would you like to play standard difficulty or a slightly easier version of the game?', 2)
+    PrettyDisplay.puts_pause('1 = standard mode: break a 4-color code with 7 possible colors')
+    PrettyDisplay.puts_pause('2 = easy mode: break a 4-color code with 5 possible colors')
+    PrettyDisplay.puts_pause('3 = beginner mode: break a 2-color code with 4 possible colors', 2)
   end
 
   def initialize
@@ -37,12 +37,10 @@ class Difficulty
   end
 
   def update_difficulty(choice)
-    begin
-      self.send("#{MODES[choice]}_mode")
-    rescue StandardError => e
-      PrettyDisplay.puts_pause("\nHm, I don't know that one.... ", 2)
-      Difficulty.assign
-    end
+    send("#{MODES[choice]}_mode")
+  rescue StandardError => e
+    PrettyDisplay.puts_pause("\nHm, I don't know that one.... ", 2)
+    Difficulty.assign
   end
 
   def standard_mode

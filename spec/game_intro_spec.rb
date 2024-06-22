@@ -2,7 +2,6 @@ require 'pry-byebug'
 
 require './lib/game_intro'
 
-
 describe GameIntro do
   describe '.welcome' do
     let(:expected_output) { described_class.welcome.join }

@@ -4,7 +4,6 @@ require 'pry-byebug'
 
 require_relative '../lib/play_mastermind'
 
-
 describe EndGame do
   subject { described_class.new }
 
@@ -19,7 +18,7 @@ describe EndGame do
 
   describe '#print_winners_message' do
     let(:guesses_remaining) { 4 }
-    let(:winning_game) { described_class.new(guesses_remaining)}
+    let(:winning_game) { described_class.new(guesses_remaining) }
     let(:message) { "whoohoo, you win, you codebreaker, you!!!\n\nyou got it right in 8 attempts. Impressive!\n\n" }
     it { expect { winning_game.print_winners_message }.to output(message).to_stdout }
   end
@@ -30,7 +29,7 @@ describe EndGame do
   end
 
   describe '#print_losing_message' do
-    let(:losing_game) { described_class.new(0, [:red, :red, :indigo, :blue])}
+    let(:losing_game) { described_class.new(0, %i[red red indigo blue]) }
     let(:message) { "Ope, your 12 guesses are up.\n\n>> The code was: >> | red | red | indigo | blue |  <<\n\n\n" }
     it { expect { losing_game.print_losing_message }.to output(message).to_stdout }
   end
@@ -48,19 +47,19 @@ describe EndGame do
   end
 
   describe '#answer' do
-    let(:yes_play_again) { StringIO.new('1')}
+    let(:yes_play_again) { StringIO.new('1') }
 
     context 'when the user enters "1"' do
       it 'returns 1' do
         subject.stub(:gets).and_return("1\n")
-        expect(subject.answer).to eq("1")
+        expect(subject.answer).to eq('1')
       end
     end
 
     context 'when the user enters "2"' do
       it 'returns 2' do
         subject.stub(:gets).and_return("2\n")
-        expect(subject.answer).to eq("2")
+        expect(subject.answer).to eq('2')
       end
     end
   end
