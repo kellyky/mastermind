@@ -10,6 +10,7 @@ class GameIntro
     explain_scoring
   end
 
+  # Prints welcome message with brief introduction to the game
   def self.welcome
     PrettyDisplay.puts_pause('>>>==============================================================<<<', 2)
     PrettyDisplay.puts_pause('     >>>>>>>>>>     Welcome to Mastermind!     <<<<<<<<<<     ', 2)
@@ -19,6 +20,7 @@ class GameIntro
     PrettyDisplay.animated_text("\nIn this version, you play against the computer.\n\n")
   end
 
+  # Prints game rules
   def self.rules
     PrettyDisplay.puts_pause('>>>==============================================================<<<', 2)
     PrettyDisplay.puts_pause("\n>>> Gameplay & Scoring:\n\n")
@@ -27,6 +29,7 @@ class GameIntro
     PrettyDisplay.animated_text("Each attempt is scored to give the code breaker clues.\n\n")
   end
 
+  # Explains scoring system
   def self.explain_scoring
     PrettyDisplay.animated_text("Scoring works like this:\n")
     PrettyDisplay.animated_text("- Black point(s): 1 for each 'place' with the correct color\n")

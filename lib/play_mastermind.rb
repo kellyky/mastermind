@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'pry-byebug'
-require 'rainbow'
 
 require_relative 'color_selector'
 require_relative 'difficulty'
@@ -21,9 +20,7 @@ class PlayMasterMind
     new.begin_new_game
   end
 
-  # def initialize(guesses_allowed = 12, guesses_remaining = 1)
-  def initialize(guesses_allowed = 12, guesses_remaining = 12)
-    @guesses_allowed = guesses_allowed
+  def initialize(guesses_remaining = 12)
     @remaining_guesses = guesses_remaining
     @code_length = 4
     @spy_roles = SpyRole.new
@@ -63,7 +60,7 @@ class PlayMasterMind
   end
 
   def play_game
-    if @remaining_guesses > 0
+    if @remaining_guesses.positive?
       play_turn
     else
       EndGame.declare_loser(@remaining_guesses, @encode_colors)
@@ -98,15 +95,33 @@ class PlayMasterMind
 
   def print_code
     print '>>>>>>> You guessed: >> | '
-    @guessed_code.each do |color|
-      PrettyDisplay.color_text(color)
-    end
+    color_print_guessed_code
     print " <<\n"
   end
 
+  def color_print_guessed_code
+    @guessed_code.each do |color|
+      PrettyDisplay.color_text(color)
+    end
+  end
+
   def print_score
-    PrettyDisplay.puts_pause("\n >> Black: #{@score[:fully_correct_placement]} | space(s) with the RIGHT color")
-    PrettyDisplay.puts_pause(" >> White: #{@score[:partly_correct_placement]} | space(s) with partly_correct color / but you do need this color")
+    print_fully_correct_score
+    print_partly_correct_score
+  end
+
+  def print_fully_correct_score
+    PrettyDisplay.puts_pause(
+      "\n >> Black: #{@score[:fully_correct_placement]} | "\
+      'space(s) with the RIGHT color'
+    )
+  end
+
+  def print_partly_correct_score
+    PrettyDisplay.puts_pause(
+      " >> White: #{@score[:partly_correct_placement]} | " \
+      'space(s) with partly_correct color / but you do need this color'
+    )
   end
 
   def fully_correct_guess?(place)

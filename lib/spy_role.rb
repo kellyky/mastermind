@@ -20,6 +20,7 @@ class SpyRole
     @code_maker = :computer
   end
 
+  # Assigns roles to the code maker and code breaker based on player input
   def assign_roles
     begin
       send("#{ROLES[player_answer]}_code_breaker")
@@ -35,6 +36,7 @@ class SpyRole
     gets.chomp
   end
 
+  # Sets computer as code breacker and player as code maker
   def computer_code_breaker
     PrettyDisplay.animated_text("\nCode maker it is!\m")
     PrettyDisplay.animated_text("\n\nYou'll CREATE the code then the computer will try to break it.\n\n")
@@ -42,6 +44,7 @@ class SpyRole
     @code_breaker = :computer
   end
 
+  # Confirms human as code maker and computer as code breaker
   def player_code_breaker
     PrettyDisplay.puts_pause("\n\nThe computer creates the code - YOU need to break the code.", 2)
   end

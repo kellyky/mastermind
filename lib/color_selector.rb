@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'pry-byebug'
-require 'rainbow'
 
 require_relative 'play_mastermind'
 require_relative 'pretty_display'
@@ -62,7 +61,7 @@ class ColorSelector
     if guesses_left.zero?
       'This is your last guess. Make it count!'
     else
-      "You have #{guesses_left} guesses left."
+      "You have #{guesses_left + 1} guesses left."
     end
   end
 

@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 require 'pry-byebug'
 
 require_relative 'color_selector'
 require_relative 'play_mastermind'
 require_relative 'pretty_display'
 
+# Player may select difficulty that alters the number of possible colors and/or length of code
 class Difficulty
   MODES = {
     '1' => :standard,
     '2' => :easy,
     '3' => :beginner
-  }
+  }.freeze
 
   def self.assign
     print_difficulty_message
@@ -36,9 +39,10 @@ class Difficulty
     gets.chomp
   end
 
+  # Confirms standard mode, or sets easy or beginner mode - based on player input
   def update_difficulty(choice)
     send("#{MODES[choice]}_mode")
-  rescue StandardError => e
+  rescue NoMethodError
     PrettyDisplay.puts_pause("\nHm, I don't know that one.... ", 2)
     Difficulty.assign
   end

@@ -5,14 +5,18 @@ require 'rainbow'
 
 # Methods to add color to text, to animate text, etc.
 class PrettyDisplay
-  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.00) # update seconds to 0.02 for animation
+  #  Puts optional animation and configurable precedning newlines
+  #   - Update seconds to 0.02 for animation
+  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.00)
     sleep(seconds.to_i)
     lines = ''
     newlines.times { lines += "\n" }
     puts "#{text}#{lines}"
   end
 
-  def self.animated_elipses(seconds = 0.00) # update seconds to 0.02 for animation
+  # Prints elipses with optional animation.
+  # Update seconds to 0.02 for animation.
+  def self.animated_elipses(seconds = 0.00)
     print '.'
     sleep(seconds)
     print '.'
@@ -20,13 +24,17 @@ class PrettyDisplay
     print '.'
   end
 
-  def self.animated_text(text = '...', seconds = 0.00) # update seconds to 0.02 for animation
+  # Print with optional animation from word to word.
+  # Update seconds to 0.02 for animation.
+  def self.animated_text(text = '...', seconds = 0.00)
     text.split('').each do |word|
       print word
       sleep(seconds)
     end
   end
 
+  # Colorizes selected text using Rainbow gem.
+  # i.e. If color == :yellow, the text is printed in that color in the terminal.
   def self.color_text(color)
     case color
     when :red then print "#{Rainbow(color).red} | "

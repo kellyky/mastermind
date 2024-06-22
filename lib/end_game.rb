@@ -51,9 +51,11 @@ class EndGame
     PrettyDisplay.puts_pause(' <<', 3)
   end
 
+  # Prompts the player to play again or exit based on user input.
+  # Recursively calls itself until a valid answer ('1' for play again, '2' for exit) is provided.
   def play_again?
-    send("#{GAME_CHOICE[answer]}")
-  rescue StandardError
+    send((GAME_CHOICE[answer]).to_s)
+  rescue NoMethodError
     PrettyDisplay.animated_elipses
     PrettyDisplay.puts_pause("Hm... I don't know that one. Choose '1' to play again or '2' to exit.")
     play_again?
