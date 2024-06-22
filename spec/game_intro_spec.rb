@@ -1,5 +1,7 @@
-require './lib/game_intro'
 require 'pry-byebug'
+
+require './lib/game_intro'
+
 
 describe GameIntro do
   describe '.welcome' do

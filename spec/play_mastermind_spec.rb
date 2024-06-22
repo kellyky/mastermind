@@ -1,5 +1,6 @@
-require './lib/play_mastermind'
 require 'pry-byebug'
+
+require_relative '../lib/play_mastermind'
 
 describe PlayMasterMind do
   describe '#play_game' do
@@ -27,6 +28,15 @@ describe PlayMasterMind do
   end
 
   describe '#play_turn' do
+    it 'should decrement the remaining guesses by 1' do
+      subject.instance_variable_set(:@remaining_guesses, 10)
+      allow(subject).to receive(:guess_code)
+      allow(subject).to receive(:evaluate_guess)
+      allow(subject).to receive(:play_game)
+
+      subject.play_turn
+      expect(subject.remaining_guesses).to eq(9)
+    end
   end
 
   describe '#evaluate_guess' do

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require './lib/pretty_display'
-require './lib/play_mastermind'
-require 'rainbow'
 require 'pry-byebug'
+require 'rainbow'
+
+require_relative 'play_mastermind'
+require_relative 'pretty_display'
 
 # Logic for encoding / decoding color
 class ColorSelector
@@ -66,7 +67,7 @@ class ColorSelector
   end
 
   def computer_select_colors
-    show_color_bank
+    # show_color_bank
     selected_colors = []
     code_length.times { selected_colors << color_bank.sample }
     selected_colors

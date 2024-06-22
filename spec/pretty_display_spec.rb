@@ -1,6 +1,8 @@
-require './lib/game_intro'
-require 'pry-byebug'
 require 'stringio'
+
+require 'pry-byebug'
+
+require_relative '../lib/game_intro'
 
 describe PrettyDisplay do
   let(:seconds) { 0.01 }

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require './lib/play_mastermind'
-require './lib/game_intro'
-require './lib/pretty_display'
-
 require 'pry-byebug'
+
+require_relative 'game_intro'
+require_relative 'play_mastermind'
+require_relative 'pretty_display'
 
 # Logic setting the code breaker and code maker (computer or player)
 class SpyRole

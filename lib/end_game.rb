@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require './lib/pretty_display'
-require './lib/play_mastermind'
 require 'pry-byebug'
+
+require_relative 'play_mastermind'
+require_relative 'pretty_display'
 
 # End game scripts for win/loss and logic to play again
 class EndGame

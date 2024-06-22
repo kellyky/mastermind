@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-require './lib/pretty_display'
-require './lib/game_intro'
-require './lib/end_game'
-require './lib/spy_role'
-require './lib/color_selector'
-require './lib/difficulty'
-require 'rainbow'
 require 'pry-byebug'
+require 'rainbow'
+
+require_relative 'color_selector'
+require_relative 'difficulty'
+require_relative 'end_game'
+require_relative 'game_intro'
+require_relative 'pretty_display'
+require_relative 'spy_role'
 
 # Responsible for actual game play logic
 class PlayMasterMind

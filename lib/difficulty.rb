@@ -1,7 +1,8 @@
-require './lib/play_mastermind'
-require './lib/pretty_display'
-require './lib/color_selector'
 require 'pry-byebug'
+
+require_relative 'color_selector'
+require_relative 'play_mastermind'
+require_relative 'pretty_display'
 
 class Difficulty
   MODES = {
@@ -59,4 +60,3 @@ class Difficulty
     @mode = :beginner
   end
 end
-

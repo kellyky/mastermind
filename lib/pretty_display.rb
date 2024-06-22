@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require 'rainbow'
 require 'pry-byebug'
+require 'rainbow'
 
 # Methods to add color to text, to animate text, etc.
 class PrettyDisplay
-  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.0)
+  def self.puts_pause(text = "\n", newlines = 1, seconds = 0.00)  # update seconds to 0.02 for animation
     sleep(seconds.to_i)
     lines = ''
     newlines.times { lines += "\n" }
     puts "#{text}#{lines}"
   end
 
-  def self.animated_elipses(seconds = 0.00)
+  def self.animated_elipses(seconds = 0.00  )# update seconds to 0.02 for animation
     print '.'
     sleep(seconds)
     print '.'
@@ -20,7 +20,7 @@ class PrettyDisplay
     print '.'
   end
 
-  def self.animated_text(text = '...', seconds = 0.00)
+  def self.animated_text(text = '...', seconds = 0.00)  # update seconds to 0.02 for animation
     text.split('').each do |word|
       print word
       sleep(seconds)

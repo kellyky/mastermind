@@ -1,6 +1,8 @@
-require './lib/play_mastermind'
-require 'pry-byebug'
 require 'stringio'
+
+require 'pry-byebug'
+
+require_relative '../lib/play_mastermind'
 
 describe SpyRole do
   subject { described_class.new }

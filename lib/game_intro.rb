@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/pretty_display'
+require_relative 'pretty_display'
 
 # Prints game intro and rules
 class GameIntro
