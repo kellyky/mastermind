@@ -5,8 +5,18 @@ require 'rainbow'
 
 # Methods to add color to text, to animate text, etc.
 class PrettyDisplay
+  COLOR_MAP = {
+    red: 'red',
+    orange: 'orangered',
+    yellow: 'gold',
+    green: 'green',
+    blue: 'cyan',
+    indigo: 'indigo',
+    violet: 'webpurple'
+  }.freeze
+
   #  Puts optional animation and configurable precedning newlines
-  #   - Update seconds to 0.02 for animation
+  #  Update seconds to 0.02 for animation
   def self.puts_pause(text = "\n", newlines = 1, seconds = 0.00)
     sleep(seconds.to_i)
     lines = ''
@@ -14,7 +24,7 @@ class PrettyDisplay
     puts "#{text}#{lines}"
   end
 
-  # Prints elipses with optional animation.
+  # Prints elipses ... with animation if seconds is set as greater than 0
   # Update seconds to 0.02 for animation.
   def self.animated_elipses(seconds = 0.00)
     print '.'
@@ -34,16 +44,18 @@ class PrettyDisplay
   end
 
   # Colorizes selected text using Rainbow gem.
-  # i.e. If color == :yellow, the text is printed in that color in the terminal.
+  # Based on user input, calls singleton method - e.g. `orange`
+  # Results in colored text in the terminal
   def self.color_text(color)
-    case color
-    when :red then print "#{Rainbow(color).red} | "
-    when :orange then print "#{Rainbow(color).orangered} | "
-    when :yellow then print "#{Rainbow(color).gold} | "
-    when :green then print "#{Rainbow(color).green} | "
-    when :blue then print "#{Rainbow(color).cyan} | "
-    when :indigo then print "#{Rainbow(color).indigo} | "
-    when :violet then print "#{Rainbow(color).webpurple} | "
+    send("#{color}")
+  rescue NoMethodError
+    raise ArgumentError, "Invalid color: #{color}"
+  end
+
+  # Define singleton methods for each color in COLOR_MAP.
+  COLOR_MAP.each do |color, rainbow_color|
+    define_singleton_method("#{color}") do
+      print "#{Rainbow(color.to_s).send(rainbow_color)} | "
     end
   end
 end
