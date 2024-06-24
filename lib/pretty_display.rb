@@ -43,6 +43,10 @@ class PrettyDisplay
     end
   end
 
+  def self.print_animated_texts(texts)
+    texts.each { |text| animated_text(text) }
+  end
+
   # Colorizes selected text using Rainbow gem.
   # Based on user input, calls singleton method - e.g. `orange`
   # Results in colored text in the terminal
