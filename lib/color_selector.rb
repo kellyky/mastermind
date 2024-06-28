@@ -29,10 +29,12 @@ class ColorSelector
     end
   end
 
+  # TODO: use attr_accessor in future refactor to replace class variables
   def code_length
     @@code_length
   end
 
+  # TODO: use attr_accessor in future refactor to replace class variables
   def difficulty
     @@difficulty
   end
@@ -96,21 +98,35 @@ class ColorSelector
         select_color
         @color_counter += 1
       end
+      # binding.pry
       @selected_colors
     end
 
     def select_color
       print "#{PrettyDisplay.animated_elipses}select a color for 'place' #{@color_counter + 1}: \n\n"
+      raw_color = player_choice
+      color = standardized_color(raw_color)
 
-      color = gets.chomp
-      formatted_color = color.strip.downcase.slice(0..2).to_sym
+      handle_invalid_color if color.nil?
 
-      if COLORS[formatted_color].nil?
-        PrettyDisplay.puts_pause("Hm, I don't know that one. Please choose an available color.")
-        select_color
-      else
-        @selected_colors << COLORS[formatted_color]
-      end
+      @selected_colors << color
+    end
+
+    def handle_invalid_color
+      # binding.pry
+      PrettyDisplay.puts_pause(
+        "Hm, I don't know that one. Please choose an available color."
+      )
+      select_color
+    end
+
+    def standardized_color(color)
+      # requires the first 3 characters of the color to match those of the color bank
+      COLORS[color.strip.downcase.slice(0..2).to_sym]
+    end
+
+    def player_choice
+      gets.chomp
     end
   end
 end
