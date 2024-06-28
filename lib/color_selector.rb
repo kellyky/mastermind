@@ -75,6 +75,7 @@ class ColorSelector
 
   # Logic to support player-selected colors whether setting or guessing the code
   class Player < ColorSelector
+    # TODO: refactor to use only relavent key/value pairs (e.g. beginner mode should only use red through green)
     COLORS = {
       red: :red,
       ora: :orange,
@@ -92,13 +93,14 @@ class ColorSelector
     end
 
     def select_colors
+      show_guessing_round_intro
+      select_color until @selected_colors.size == code_length
+      @selected_colors
+    end
+
+    def show_guessing_round_intro
       PrettyDisplay.puts_pause("*** Round #{12 - guesses_left} - #{print_guesses_left}")
       show_color_bank
-      until @selected_colors.count == code_length
-        select_color
-        @color_counter += 1
-      end
-      @selected_colors
     end
 
     def select_color
@@ -106,8 +108,9 @@ class ColorSelector
       raw_color = player_choice
       color = standardized_color(raw_color)
 
-      handle_invalid_color if color.nil?
+      return handle_invalid_color if color.nil?
 
+      @color_counter += 1
       @selected_colors << color
     end
 
@@ -119,7 +122,6 @@ class ColorSelector
     end
 
     def standardized_color(color)
-      # requires the first 3 characters of the color to match those of the color bank
       COLORS[color.strip.downcase.slice(0..2).to_sym]
     end
 

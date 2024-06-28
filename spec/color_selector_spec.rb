@@ -76,6 +76,25 @@ RSpec.describe ColorSelector do
     end
   end
 
+  describe '#break_code' do
+    context 'when @@code_breaker is computer' do
+      let(:code_breaker) { :computer }
+      it 'should call computer_select_colors' do
+        expect(color_selector).to receive(:computer_select_colors)
+        color_selector.break_code(guesses_left)
+      end
+    end
+
+    context 'when @@code_breaker is player' do
+      let(:player) { ColorSelector::Player.new(guesses_left) }
+
+      it 'should call Player.new(guesses_left).select_colors' do
+        expect_any_instance_of(ColorSelector::Player).to receive(:select_colors)
+        color_selector.break_code(guesses_left)
+      end
+    end
+  end
+
   describe '#show_color_bank' do
     let(:mock_color_selector) { double('ColorSelector') }
     let(:color_bank) { %i[red orange yellow green blue indigo violet] }
@@ -139,41 +158,51 @@ RSpec.describe ColorSelector do
 
   describe ColorSelector::Player do
     subject(:player) { described_class.new(guesses_left) }
-    let(:color_bank) { %i[red orange yellow green blue indigo violet] }
 
     describe '#select_colors' do
       before do
         ColorSelector.class_variable_set(:@@difficulty, :standard)
         ColorSelector.class_variable_set(:@@code_length, 4)
-        allow(player).to receive(:player_choice).and_return('red', 'blue', 'yellow', 'red')
+        allow(player).to receive(:gets).and_return("red\n", "ora\n", "yel\n", "blu\n")
       end
 
-      it 'should call show_color_bank' do
-        expect(player).to receive(:show_color_bank)
+      it 'should call show_guessing_round_intro' do
+        expect(player).to receive(:show_guessing_round_intro)
         player.select_colors
       end
 
-      it 'should select_color until the size of @selected_colors matches the code length' do
-        allow(player).to receive(:select_color).and_call_original
+      # TODO: Revisit the logic here. Passes currently but I'm not sure it should
+      it 'calls select_color until @selected_colors is the correct length' do
+        expect(player).to receive(:select_color).exactly(4).times.and_call_original
+        player.select_colors
+        expect(player.instance_variable_get(:@selected_colors).size).to eq(4)
+      end
+
+      it '@selected_colors returns the user-selected colors' do
+        player.select_colors
+        expect(player.instance_variable_get(:@selected_colors)).to eq(%i[red orange yellow blue])
+      end
+
+      it 'adds only valid player-entered colors to @selected_colors' do
+        allow(player).to receive(:gets).and_return("red\n", '123', "", "ora\n", "yel\n", "blu\n")
+        expect(subject).to receive(:handle_invalid_color).and_return(true).exactly(2).times.and_call_original
+        player.select_colors
+        expect(player.instance_variable_get(:@selected_colors)).to eq(%i[red orange yellow blue])
+      end
+    end
+
+    describe '#show_guessing_round_intro' do
+      it 'should display message to player to pick an available color' do
+        try_again_message = "Hm, I don't know that one. Please choose an available color."
+        allow(player).to receive(:select_color)
+        expect(PrettyDisplay).to receive(:puts_pause).with(try_again_message)
+        player.handle_invalid_color
+      end
+
+      it 'should call select_color' do
         expect(player).to receive(:select_color)
-        player.select_colors
-
-        expect(player).to have_received(:select_color).exactly(4).times
+        player.handle_invalid_color
       end
-
-      # context 'when @selected_colors.size is less than the code length' do
-      #   it 'calls select color to add colors to the code' do
-
-      #   end
-      # end
-
-      # context 'when @selected_colors.size equals that of code length' do
-      #   before do
-      #     described_class.instance_variable_set(:@selected_colors, %i[red orange red yellow])
-      #   end
-
-      #   # TODO
-      # end
     end
 
     describe '#select_color' do
