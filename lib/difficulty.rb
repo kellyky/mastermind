@@ -14,16 +14,22 @@ class Difficulty
     '3' => :beginner
   }.freeze
 
+  DIFFICULTY_OPTIONS = [
+    ['Would you like to play standard difficulty or a slightly easier version of the game?', 2],
+    ['1 = standard mode: break a 4-color code with 7 possible colors', 1],
+    ['2 = easy mode: break a 4-color code with 5 possible colors', 1],
+    ['3 = beginner mode: break a 2-color code with 4 possible colors', 2],
+].freeze
+
   def self.assign
-    print_difficulty_message
+    explain_game_difficulty_options
     new.set_mode
   end
 
-  def self.print_difficulty_message
-    PrettyDisplay.puts_pause('Would you like to play standard difficulty or a slightly easier version of the game?', 2)
-    PrettyDisplay.puts_pause('1 = standard mode: break a 4-color code with 7 possible colors')
-    PrettyDisplay.puts_pause('2 = easy mode: break a 4-color code with 5 possible colors')
-    PrettyDisplay.puts_pause('3 = beginner mode: break a 2-color code with 4 possible colors', 2)
+  def self.explain_game_difficulty_options
+    DIFFICULTY_OPTIONS.each do |message, newlines|
+      PrettyDisplay.puts_pause(message, newlines)
+    end
   end
 
   def initialize
