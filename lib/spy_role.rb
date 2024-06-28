@@ -27,7 +27,7 @@ class SpyRole
     rescue NoMethodError
       PrettyDisplay.puts_pause(
         "\nPlease choose '1' to set the code or '2' to break the code.", 2
-        )
+      )
       retry
     end
 
@@ -43,7 +43,7 @@ class SpyRole
     PrettyDisplay.animated_text("\nCode maker it is!\m")
     PrettyDisplay.animated_text(
       "\n\nYou'll CREATE the code then the computer will try to break it.\n\n"
-      )
+    )
     @code_maker = :player
     @code_breaker = :computer
   end
@@ -52,6 +52,6 @@ class SpyRole
   def player_code_breaker
     PrettyDisplay.puts_pause(
       "\n\nThe computer creates the code - YOU need to break the code.", 2
-      )
+    )
   end
 end

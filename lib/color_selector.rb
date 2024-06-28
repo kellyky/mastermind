@@ -98,7 +98,6 @@ class ColorSelector
         select_color
         @color_counter += 1
       end
-      # binding.pry
       @selected_colors
     end
 
@@ -113,7 +112,6 @@ class ColorSelector
     end
 
     def handle_invalid_color
-      # binding.pry
       PrettyDisplay.puts_pause(
         "Hm, I don't know that one. Please choose an available color."
       )

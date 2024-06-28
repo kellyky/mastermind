@@ -18,7 +18,7 @@ RSpec.describe EndGame do
       subject.we_have_a_winner
     end
 
-    it 'should invite the player to play again'  do
+    it 'should invite the player to play again' do
       expect(subject).to receive(:invite_player_to_another_game)
       subject.we_have_a_winner
     end
@@ -44,7 +44,7 @@ RSpec.describe EndGame do
       subject.better_luck_next_time
     end
 
-    it 'should invite the player to play again'  do
+    it 'should invite the player to play again' do
       expect(subject).to receive(:invite_player_to_another_game)
       subject.better_luck_next_time
     end
@@ -63,7 +63,7 @@ RSpec.describe EndGame do
 
   describe '#play_again?' do
     context 'when the player selected 1 to play again' do
-      before { allow(subject).to receive(:answer).and_return('1')}
+      before { allow(subject).to receive(:answer).and_return('1') }
       it 'should call play_again' do
         expect(subject).to receive(:play_again)
         subject.play_again?
@@ -71,7 +71,7 @@ RSpec.describe EndGame do
     end
 
     context 'when the player selected 2 to exit' do
-      before { allow(subject).to receive(:answer).and_return('2')}
+      before { allow(subject).to receive(:answer).and_return('2') }
       it 'should call exit_game' do
         expect(subject).to receive(:exit_game)
         subject.play_again?

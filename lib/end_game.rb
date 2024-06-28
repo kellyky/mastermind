@@ -35,7 +35,7 @@ class EndGame
     PrettyDisplay.puts_pause('whoohoo, you win, you codebreaker, you!!!', 2)
     PrettyDisplay.puts_pause(
       "you got it right in #{12 - @guesses_remaining} attempts. Impressive!", 2
-      )
+    )
   end
 
   def better_luck_next_time
@@ -62,14 +62,14 @@ class EndGame
     PrettyDisplay.puts_pause(
       "Hm... I don't know that one. " \
       "Choose '1' to play again or '2' to exit."
-      )
+    )
     retry
   end
 
   def invite_player_to_another_game
     PrettyDisplay.puts_pause(
       'Would you like to play again? (1 = yes, 2 = no)', 2
-      )
+    )
   end
 
   def play_again
