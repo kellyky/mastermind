@@ -7,9 +7,10 @@ require_relative 'difficulty'
 require_relative 'end_game'
 require_relative 'game_intro'
 require_relative 'pretty_display'
+require_relative 'score'
 require_relative 'spy_role'
 
-# Responsible for actual game play logic
+# Responsible for game play logic
 class PlayMasterMind
   attr_reader :remaining_guesses
 
@@ -70,80 +71,19 @@ class PlayMasterMind
   def play_turn
     @remaining_guesses -= 1
     guess_code
-    evaluate_color_choices
+    score_turn
+    check_for_winner
     play_game
   end
 
-  def evaluate_color_choices
-    parse_correct_guesses
-    log_turn_score(correct, partly_correct)
-    display_results
-    check_for_winner(correct)
+  def score_turn
+    @turn_score ||= Score.new(@code_length, @guessed_code, @encode_colors)
+    @turn_score.parse_guesses
+    @turn_score.print_score
   end
 
-  def parse_correct_guesses
-    correct = 0
-    partly_correct = 0
-    (0...@code_length).to_a.each do |place|
-      correct += 1 if fully_correct_guess?(place)
-      partly_correct += 1 if partly_correct_guess?(place)
-    end
-  end
-
-  def display_results
-    print_code
-    print_score
-    PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
-  end
-
-  def check_for_winner(correct)
-    EndGame.declare_winner(@remaining_guesses) if correct == @code_length
-  end
-
-  def print_code
-    print '>>>>>>> You guessed: >> | '
-    color_print_guessed_code
-    print " <<\n"
-  end
-
-  def color_print_guessed_code
-    @guessed_code.each do |color|
-      PrettyDisplay.color_text(color)
-    end
-  end
-
-  def print_score
-    print_fully_correct_score
-    print_partly_correct_score
-  end
-
-  def print_fully_correct_score
-    PrettyDisplay.puts_pause(
-      "\n >> Black: #{@score[:fully_correct_placement]} | "\
-      'space(s) with the RIGHT color'
-    )
-  end
-
-  def print_partly_correct_score
-    PrettyDisplay.puts_pause(
-      " >> White: #{@score[:partly_correct_placement]} | " \
-      'space(s) with partly_correct color / but you do need this color'
-    )
-  end
-
-  def fully_correct_guess?(place)
-    @guessed_code[place] == @encode_colors[place]
-  end
-
-  def partly_correct_guess?(place)
-    !fully_correct_guess?(place) && @encode_colors.any?(@guessed_code[place])
-  end
-
-  def log_turn_score(correct, partly_correct)
-    @score = {
-      fully_correct_placement: correct.to_s,
-      partly_correct_placement: partly_correct.to_s
-    }
+  def check_for_winner
+    EndGame.declare_winner(@remaining_guesses) if @turn_score.wins_game?
   end
 
   def guess_code

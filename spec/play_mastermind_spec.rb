@@ -102,12 +102,12 @@ describe PlayMasterMind do
     before do
       subject.instance_variable_set(:@remaining_guesses, 10)
       allow(subject).to receive(:guess_code)
-      allow(subject).to receive(:evaluate_color_choices)
+      allow(subject).to receive(:score_turn)
       allow(subject).to receive(:play_game)
+      allow(subject).to receive(:check_for_winner)
     end
 
     it 'should decrement the remaining guesses by 1' do
-
       subject.play_turn
       expect(subject.remaining_guesses).to eq(9)
     end
@@ -117,190 +117,44 @@ describe PlayMasterMind do
       subject.play_turn
     end
 
-    it 'should call evaluate_color_choices' do
-      expect(subject).to receive(:evaluate_color_choices)
+    it 'should call score_turn' do
+      expect(subject).to receive(:score_turn)
       subject.play_turn
     end
 
     it 'should call play_game' do
-      expect(subject).to receive(:evaluate_color_choices)
+      expect(subject).to receive(:score_turn)
       subject.play_turn
-    end
-  end
-
-  describe '#evaluate_color_choices' do
-    before do
-      allow(subject).to receive(:print_code)
-      allow(subject).to receive(:print_score)
-      allow(subject).to receive(:fully_correct_guess?).and_return(false)
-      allow(subject).to receive(:partly_correct_guess?).and_return(true)
-    end
-
-    it 'should log the score for the turn' do
-      correct_guesses = 0
-      partly_correct_guesses = 4
-
-      expect(subject).to receive(:log_turn_score).with(correct_guesses, partly_correct_guesses)
-      subject.evaluate_color_choices
-    end
-
-    it 'should display_results' do
-      expect(subject).to receive(:display_results)
-      subject.evaluate_color_choices
-    end
-
-    it 'should check for winner' do
-      allow(subject).to receive(:print_code)
-      expect(subject).to receive(:check_for_winner)
-      subject.evaluate_color_choices
-    end
-  end
-
-  describe '#parse_correct_guesses' do
-    let(:correct) { 0 }
-    let(:partly_correct) { 0 }
-
-    # iterates through
-  end
-
-  describe '#display_results' do
-    before do
-      allow(subject).to receive(:print_score)
-      allow(subject).to receive(:print_code)
-    end
-
-    it 'should call print_code' do
-      expect(subject).to receive(:print_code)
-      subject.display_results
-    end
-
-    it 'should call print_score' do
-      expect(subject).to receive(:print_score)
-      subject.display_results
-    end
-
-    it 'should display the border' do
-      border= "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-      expect(PrettyDisplay).to receive(:puts_pause).with(border, 3, 0.3)
-      subject.display_results
     end
   end
 
   describe '#check_for_winner' do
     context 'when number of correct guesses matches length of code' do
-      let(:correct_guesses) { 4 }
+      let(:code_length) { 4 }
+      let(:guessed_code) { %i[red blue red blue] }
+      let(:encode_colors) { guessed_code }
+
+      before { allow_any_instance_of(Score).to receive(:wins_game?).and_return(true) }
       it 'should declare winner' do
+        subject.instance_variable_set(:@turn_score, Score.new(code_length, guessed_code, encode_colors))
         remaining_guesses = subject.instance_variable_get(:@remaining_guesses)
         expect(EndGame).to receive(:declare_winner).with(remaining_guesses)
-        subject.check_for_winner(correct_guesses)
+        subject.check_for_winner
       end
     end
 
     context 'when number of correct guesses matches length of code' do
-      let(:correct_guesses) { 3 }
+      let(:code_length) { 4 }
+      let(:guessed_code) { %i[red blue red blue] }
+      let(:encode_colors) { %i[red red red red] }
+
+      before { allow_any_instance_of(Score).to receive(:wins_game?).and_return(false) }
       it 'should declare winner' do
+        subject.instance_variable_set(:@turn_score, Score.new(code_length, guessed_code, encode_colors))
         remaining_guesses = subject.instance_variable_get(:@remaining_guesses)
         expect(EndGame).not_to receive(:declare_winner).with(remaining_guesses)
-        subject.check_for_winner(correct_guesses)
+        subject.check_for_winner
       end
-    end
-  end
-
-  describe '#fully_correct_guess?' do
-    subject(:game) { described_class.new }
-
-    context 'when the color is correct for this spot' do
-      let(:place) { 0 }
-
-      before do
-        game.instance_variable_set(:@encode_colors, %i[red blue blue blue])
-        game.instance_variable_set(:@guessed_code, %i[red blue blue blue])
-      end
-
-      it 'should return true' do
-        expect(game.fully_correct_guess?(place)).to be(true)
-      end
-    end
-
-    context 'when the color is correct for another spot' do
-      let(:place) { 0 }
-
-      before do
-        game.instance_variable_set(:@encode_colors, %i[red blue blue blue])
-        game.instance_variable_set(:@guessed_code, %i[blue blue blue blue])
-      end
-
-      it 'should return true' do
-        expect(game.fully_correct_guess?(place)).to be(false)
-      end
-    end
-
-    context 'when the color is correct for no spot' do
-      let(:place) { 0 }
-
-      before do
-        game.instance_variable_set(:@encode_colors, %i[blue blue blue blue])
-        game.instance_variable_set(:@guessed_code, %i[red red red red])
-      end
-
-      it 'should return true' do
-        expect(game.fully_correct_guess?(place)).to be(false)
-      end
-    end
-  end
-
-  describe '#partly_correct_guess?' do
-    subject(:game) { described_class.new }
-
-    context 'when the color is correct for this spot' do
-      let(:place) { 0 }
-
-      before do
-        game.instance_variable_set(:@encode_colors, %i[red blue indigo red])
-        game.instance_variable_set(:@guessed_code, %i[red blue blue blue])
-      end
-
-      it 'should return false' do
-        expect(game.partly_correct_guess?(place)).to be(false)
-      end
-    end
-
-    context 'when the color is correct for a different spot' do
-      let(:place) { 0 }
-
-      before do
-        game.instance_variable_set(:@encode_colors, %i[indigo indigo indigo red])
-        game.instance_variable_set(:@guessed_code, %i[red blue blue blue])
-      end
-
-      it 'should return true' do
-        expect(game.partly_correct_guess?(place)).to be(true)
-      end
-    end
-
-    context 'when the color is correct for no spots' do
-      let(:place) { 0 }
-      before do
-        game.instance_variable_set(:@encode_colors, %i[blue blue blue blue])
-        game.instance_variable_set(:@guessed_code, %i[orange orange orange orange])
-      end
-
-      it 'should return false' do
-        expect(game.partly_correct_guess?(place)).to be(false)
-      end
-    end
-  end
-
-  describe '#log_turn_score' do
-    let(:correct) { 1 }
-    let(:partly_correct) { 2 }
-
-    it 'should update @score with correct and partly correct values' do
-      subject.log_turn_score(correct, partly_correct)
-      expect(subject.instance_variable_get(:@score)).to eq({
-        fully_correct_placement: correct.to_s,
-        partly_correct_placement: partly_correct.to_s
-      })
     end
   end
 
