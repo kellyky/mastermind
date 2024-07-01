@@ -70,27 +70,34 @@ class PlayMasterMind
   def play_turn
     @remaining_guesses -= 1
     guess_code
-    evaluate_guess
+    evaluate_color_choices
     play_game
   end
 
-  def evaluate_guess
+  def evaluate_color_choices
+    parse_correct_guesses
+    log_turn_score(correct, partly_correct)
+    display_results
+    check_for_winner(correct)
+  end
+
+  def parse_correct_guesses
     correct = 0
     partly_correct = 0
     (0...@code_length).to_a.each do |place|
-      if fully_correct_guess?(place)
-        correct += 1
-      elsif partly_correct_guess?(place)
-        partly_correct += 1
-      end
+      correct += 1 if fully_correct_guess?(place)
+      partly_correct += 1 if partly_correct_guess?(place)
     end
+  end
 
-    score_turn(correct, partly_correct)
+  def display_results
     print_code
     print_score
     PrettyDisplay.puts_pause("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", 3, 0.3)
+  end
 
-    EndGame.declare_winner(remaining_guesses) if correct == @code_length
+  def check_for_winner(correct)
+    EndGame.declare_winner(@remaining_guesses) if correct == @code_length
   end
 
   def print_code
@@ -129,10 +136,10 @@ class PlayMasterMind
   end
 
   def partly_correct_guess?(place)
-    @encode_colors.any?(@guessed_code[place])
+    !fully_correct_guess?(place) && @encode_colors.any?(@guessed_code[place])
   end
 
-  def score_turn(correct, partly_correct)
+  def log_turn_score(correct, partly_correct)
     @score = {
       fully_correct_placement: correct.to_s,
       partly_correct_placement: partly_correct.to_s

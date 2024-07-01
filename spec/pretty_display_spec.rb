@@ -97,9 +97,8 @@ describe PrettyDisplay do
   describe 'colorizing methods' do
     PrettyDisplay::COLOR_MAP.each do |color, _|
       it 'should colorize text in #{color}' do
-        expect { described_class.send(color) }.to output(
-          "#{Rainbow(color.to_s).send(PrettyDisplay::COLOR_MAP[color])} | "
-        ).to_stdout
+        expected_output = "#{Rainbow(color.to_s).send(PrettyDisplay::COLOR_MAP[color])} | "
+        expect { described_class.send(color) }.to output(expected_output).to_stdout
       end
     end
   end
