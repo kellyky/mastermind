@@ -14,14 +14,23 @@ Playable and enjoyable. :D
 Still periodically adding test coverage and possibly features. 
 
 ## Installation
-1. Clone our download the contents of this repo
+1. Clone repository
 2. Navigate to this directory
 3. Run `bundle install` to install gems
+
+```bash
+git clone git@github.com:kellyky/mastermind.git
+cd mastermind
+bundle install
+```
 
 You should be ready to play!
 
 ## To Play
-In your terminal, navigate to this directory and run `ruby play_the_game.rb`. Proceed as prompted.
+
+```bash
+bin/play
+```
 
 ## Features
 - Choose whether to make the code or break the code (or secret test mode)
