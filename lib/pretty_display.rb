@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-
-require 'pry-byebug'
+#
 require 'rainbow'
 
 # Methods to add color to text, to animate text, etc.

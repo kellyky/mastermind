@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry-byebug'
-
 require_relative 'color_selector'
 require_relative 'play_mastermind'
 require_relative 'pretty_display'
