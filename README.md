@@ -1,12 +1,26 @@
 # mastermind
-A text-based game where you (or the computer) has to break a 4-color code. i.e. like Wordle but for colors. You have 12 attempts.
 
-- If you guess a correct color in the correct place, you get a black peg
-- If you guess a correct color in the incorrect place, you get a white peg
+A test-driven, text-based implementation of the classic Mastermind game.
 
-Pegs are awarded in no particular order, so you'll need to figure out which colors you've got right.
+Players attempt to guess a 4-color code in 12 turns, receiving feedback in the form of black and white pegs:
 
-For a more thorough description of gameplay and roles, check out this wikihow article [here](https://www.wikihow.com/Play-Mastermind)
+- **Black peg** — correct color in the correct position
+- **White peg** — correct color in the wrong position
+
+Pegs are awarded in no particular order, requiring deduction and iteration to solve the code.
+
+A more detailed outline of the game itself can be found [here](https://www.wikihow.com/Play-Mastermind).
+
+## Project Structure
+
+This project follows a conventional Ruby layout:
+
+- `lib/` — game logic and supporting classes
+- `bin/` — executable entry points
+- `spec/` — RSpec test suite
+- `Gemfile` — dependency management via Bundler
+
+The implementation separates game logic, display concerns, and CLI orchestration into distinct components.
 
 ## Installation
 1. Clone repository
@@ -19,15 +33,14 @@ cd mastermind
 bundle install
 ```
 
-You should be ready to play!
-
-## To Play
+## Run the Game
 
 ```bash
 bin/play
 ```
 
-## Known Issues
+## Testing
 
-Scoring needs fixing.
-
+```bash
+bin/rspec
+```
